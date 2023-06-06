@@ -1,20 +1,28 @@
 import fastify from 'fastify'
-import main from './db/connection'
+import cors from '@fastify/cors'
+import jwt from '@fastify/jwt'
+import database from './db/connection'
+import { test } from './routes/auth/sign-up'
 
 async function bootstrap() {
   const app = fastify()
-  main()
+  const db = database()
 
-  app.get('/', () => {
-    return 'test'
-  })
+  db.start()
 
+  app.register(cors, { origin: ['localhost:3000'] })
+  app.register(jwt, { secret: 'awkdifsadawdaojsdiojadadwadioawjd' })
+
+  // routes
+  app.register(test)
+
+  const port = 8080
   app
     .listen({
-      port: 8080,
+      port,
     })
     .then(() =>
-      console.log('[server]: listening on port http://localhost:8080'),
+      console.log(`[server]: listening on port http://localhost:${port}`),
     )
 }
 
