@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import { FastifyInstance } from 'fastify'
 import { userModel } from '../../models/user'
 
-export async function test(app: FastifyInstance) {
+export async function SignUp(app: FastifyInstance) {
   app.post('/signup', async (req, res) => {
     const bodySchema = z
       .object({
