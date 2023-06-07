@@ -21,10 +21,7 @@ export const UserSchema = new Schema<IUser>(
       unique: true,
       required: true,
     },
-    profile_photo: {
-      type: String,
-      required: false,
-    },
+    profile_photo: String,
     email: {
       type: String,
       unique: true,
