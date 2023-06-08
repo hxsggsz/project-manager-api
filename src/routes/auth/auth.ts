@@ -45,6 +45,38 @@ export async function Auth(app: FastifyInstance) {
       password: hashPassword,
     })
 
-    return res.status(200).send({ message: 'user created successfully' })
+    return res.status(201).send({ message: 'user created successfully' })
+  })
+
+  app.post('/login', async (req, res) => {
+    const bodySchema = z.object({
+      email: z.string().email('it must be a valid email').nonempty(),
+      password: z.string().nonempty(),
+    })
+    const loginParsed = bodySchema.parse(req.body)
+
+    const findEmail = await userModel.findOne({
+      email: loginParsed.email,
+    })
+
+    if (!findEmail) {
+      return res
+        .status(400)
+        .send({ message: 'there is no account with this email' })
+    }
+
+    const comparePassword = await bcrypt.compare(
+      loginParsed.password,
+      findEmail.password,
+    )
+
+    if (!comparePassword) {
+      return res
+        .status(400)
+        .send({ message: 'there is no account with this password' })
+    }
+
+    // todo: create a token with the basic information about the user and return it
+    return res.status(200).send({ findEmail })
   })
 }

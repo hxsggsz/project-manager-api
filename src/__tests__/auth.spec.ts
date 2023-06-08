@@ -18,7 +18,7 @@ describe('auth route', () => {
     })
 
     expect(res.json()).toEqual({ message: 'user created successfully' })
-    expect(res.statusCode).toEqual(200)
+    expect(res.statusCode).toEqual(201)
   })
 
   it('should get an "email already in use" error', async () => {
