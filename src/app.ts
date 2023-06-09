@@ -14,7 +14,9 @@ export default function bootstrap() {
   db.start()
 
   app.register(cors, { origin: ['localhost:3000'] })
-  app.register(jwt, { secret: process.env.SECURITY_JWT!.toString() })
+  app.register(jwt, {
+    secret: 'dawdanwkjdnajdnasjdnasdjawndjwandwjandwadnkawjdnjawdnwkaj',
+  })
 
   // routes
   app.register(Auth)

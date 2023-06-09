@@ -3,7 +3,7 @@ import bootstrap from '../app'
 const app = bootstrap()
 const random = Math.floor(Math.random() * 1000)
 
-describe('auth route', () => {
+describe('Signup controller', () => {
   it('should create a new unique user', async () => {
     const res = await app.inject({
       url: '/signup',
@@ -69,5 +69,52 @@ describe('auth route', () => {
     })
 
     expect(res.statusCode).toEqual(500)
+  })
+})
+
+describe('Login controller', () => {
+  it('should login with the user', async () => {
+    const res = await app.inject({
+      url: '/login',
+      method: 'POST',
+      payload: {
+        email: `testemail@gmail.com`,
+        password: 'correct password',
+      },
+    })
+
+    expect(res.statusCode).toEqual(200)
+  })
+
+  it('should return "email not found" error', async () => {
+    const res = await app.inject({
+      url: '/login',
+      method: 'POST',
+      payload: {
+        email: `email-not-registered@gmail.com`,
+        password: 'correct password',
+      },
+    })
+
+    expect(res.statusCode).toEqual(400)
+    expect(res.json()).toEqual({
+      message: 'there is no account with this email',
+    })
+  })
+
+  it('should return "password incorrect" error', async () => {
+    const res = await app.inject({
+      url: '/login',
+      method: 'POST',
+      payload: {
+        email: `testemail@gmail.com`,
+        password: 'wrong password',
+      },
+    })
+
+    expect(res.statusCode).toEqual(400)
+    expect(res.json()).toEqual({
+      message: 'there is no account with this password',
+    })
   })
 })

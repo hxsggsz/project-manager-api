@@ -55,11 +55,11 @@ export async function Auth(app: FastifyInstance) {
     })
     const loginParsed = bodySchema.parse(req.body)
 
-    const findEmail = await userModel.findOne({
+    const findUser = await userModel.findOne({
       email: loginParsed.email,
     })
 
-    if (!findEmail) {
+    if (!findUser) {
       return res
         .status(400)
         .send({ message: 'there is no account with this email' })
@@ -67,7 +67,7 @@ export async function Auth(app: FastifyInstance) {
 
     const comparePassword = await bcrypt.compare(
       loginParsed.password,
-      findEmail.password,
+      findUser.password,
     )
 
     if (!comparePassword) {
@@ -76,7 +76,18 @@ export async function Auth(app: FastifyInstance) {
         .send({ message: 'there is no account with this password' })
     }
 
-    // todo: create a token with the basic information about the user and return it
-    return res.status(200).send({ findEmail })
+    const token = app.jwt.sign(
+      {
+        name: findUser.name,
+        username: findUser.username,
+        profile_photo: findUser.profile_photo,
+      },
+      {
+        sub: findUser.id,
+        expiresIn: '30 days',
+      },
+    )
+
+    return res.status(200).send({ token })
   })
 }
