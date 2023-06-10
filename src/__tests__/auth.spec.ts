@@ -117,4 +117,32 @@ describe('Login controller', () => {
       message: 'there is no account with this password',
     })
   })
+
+  describe('github controller', () => {
+    it('should return an error with wrong code', async () => {
+      const res = await app.inject({
+        url: '/github',
+        method: 'POST',
+        payload: {
+          code: 'wrong password',
+        },
+      })
+
+      expect(res.statusCode).toEqual(500)
+    })
+  })
+
+  describe('linkedin controller', () => {
+    it('should return an error with wrong code', async () => {
+      const res = await app.inject({
+        url: '/linkedin',
+        method: 'POST',
+        payload: {
+          code: 'wrong password',
+        },
+      })
+
+      expect(res.statusCode).toEqual(500)
+    })
+  })
 })

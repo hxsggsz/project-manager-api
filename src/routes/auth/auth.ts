@@ -156,4 +156,81 @@ export async function Auth(app: FastifyInstance) {
 
     return reply.status(200).send({ token })
   })
+
+  app.post('/linkedin', async (req, reply) => {
+    const bodySchema = z.object({
+      code: z.string(),
+    })
+
+    const { code } = bodySchema.parse(req.body)
+
+    const responseToken = z.object({
+      access_token: z.string(),
+      expires_in: z.number(),
+    })
+
+    type ResponseTokenType = z.infer<typeof responseToken>
+
+    const getAcessToken = await axios.post<ResponseTokenType>(
+      'https://www.linkedin.com/oauth/v2/accessToken',
+      null,
+      {
+        params: {
+          code,
+          grant_type: 'authorization_code',
+          client_id: process.env.LINKEDIN_CLIENT_ID,
+          client_secret: process.env.LINKEDIN_CLIENT_SECRET,
+          redirect_uri: 'http://localhost:3000/api/auth/linkedin',
+        },
+        headers: {
+          Accept: 'application/json',
+        },
+      },
+    )
+    const { access_token, expires_in: expiresIn } = getAcessToken.data
+
+    const userResponse = await axios.get(
+      'https://api.linkedin.com/v2/userinfo',
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      },
+    )
+
+    const userSchema = z.object({
+      sub: z.string(),
+      name: z.string(),
+      email: z.string().email(),
+      picture: z.string().url(),
+    })
+
+    const userInfo = userSchema.parse(userResponse.data)
+
+    let user = await userModel.findOne({ linkedinId: userInfo.sub })
+
+    if (!user) {
+      user = await userModel.create({
+        linkedinId: userInfo.sub,
+        name: userInfo.name,
+        email: userInfo.email,
+        username: userInfo.name,
+        profile_photo: userInfo.picture,
+      })
+    }
+
+    const token = app.jwt.sign(
+      {
+        name: user.name,
+        username: user.username,
+        profile_photo: user.profile_photo,
+      },
+      {
+        sub: user.id,
+        expiresIn,
+      },
+    )
+
+    return reply.status(200).send({ token })
+  })
 }
