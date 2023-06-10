@@ -4,6 +4,7 @@ const { Schema } = mongoose
 
 interface IUser {
   name: string
+  githubId?: number
   username: string
   profile_photo: string
   email: string
@@ -16,6 +17,10 @@ export const UserSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
+    githubId: {
+      type: Number,
+      unique: true,
+    },
     username: {
       type: String,
       unique: true,
@@ -25,11 +30,9 @@ export const UserSchema = new Schema<IUser>(
     email: {
       type: String,
       unique: true,
-      required: true,
     },
     password: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true },
