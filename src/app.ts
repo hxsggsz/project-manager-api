@@ -13,7 +13,7 @@ export default function bootstrap() {
 
   db.start()
 
-  app.register(cors, { origin: ['localhost:3000'] })
+  app.register(cors, { origin: ['http://localhost:3000'] })
   app.register(jwt, {
     secret: 'dawdanwkjdnajdnasjdnasdjawndjwandwjandwadnkawjdnjawdnwkaj',
   })

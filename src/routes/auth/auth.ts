@@ -15,9 +15,9 @@ export async function Auth(app: FastifyInstance) {
           .max(30, 'username too long'),
         email: z.string().email(),
         password: z.string().min(5, 'password too short'),
-        samePassword: z.string().min(5, 'password too short'),
+        confirmPassword: z.string().min(5, 'password too short'),
       })
-      .refine((data) => data.password === data.samePassword, {
+      .refine((data) => data.password === data.confirmPassword, {
         message: 'Password not the same',
       })
 
@@ -25,7 +25,9 @@ export async function Auth(app: FastifyInstance) {
     let user = await userModel.findOne({ email: userParsed.email })
 
     if (user) {
-      return res.status(400).send({ message: 'email already exists' })
+      return res.status(400).send({
+        message: 'email already exists or already in use with Linkedin',
+      })
     }
 
     const checkUsername = await userModel.findOne({
@@ -46,7 +48,18 @@ export async function Auth(app: FastifyInstance) {
       password: hashPassword,
     })
 
-    return res.status(201).send({ message: 'user created successfully' })
+    const token = app.jwt.sign(
+      {
+        name: user.name,
+        username: user.username,
+      },
+      {
+        sub: user.id,
+        expiresIn: '30 days',
+      },
+    )
+
+    return res.status(200).send({ token })
   })
 
   app.post('/login', async (req, res) => {
@@ -131,10 +144,11 @@ export async function Auth(app: FastifyInstance) {
 
     const userInfo = userSchema.parse(userResponse.data)
 
-    let user = await userModel.findOne({ githubId: userInfo.id })
+    const user = await userModel.findOne({ githubId: userInfo.id })
 
     if (!user) {
-      user = await userModel.create({
+      console.log('[github]: creating new user')
+      await userModel.create({
         githubId: userInfo.id,
         name: userInfo.name,
         username: userInfo.login,
@@ -144,12 +158,12 @@ export async function Auth(app: FastifyInstance) {
 
     const token = app.jwt.sign(
       {
-        name: user.name,
-        username: user.username,
-        profile_photo: user.profile_photo,
+        name: userInfo.name,
+        username: userInfo.login,
+        profile_photo: userInfo.avatar_url,
       },
       {
-        sub: user.id,
+        sub: userInfo.id.toString(),
         expiresIn: '30 days',
       },
     )
@@ -207,26 +221,29 @@ export async function Auth(app: FastifyInstance) {
 
     const userInfo = userSchema.parse(userResponse.data)
 
-    let user = await userModel.findOne({ linkedinId: userInfo.sub })
+    const user = await userModel.findOne({ linkedinId: userInfo.sub })
 
     if (!user) {
-      user = await userModel.create({
+      console.log('[linkedin]: creating new user')
+      await userModel.create({
         linkedinId: userInfo.sub,
         name: userInfo.name,
         email: userInfo.email,
-        username: userInfo.name,
+        username: `Linkedin_${userInfo.name}`,
         profile_photo: userInfo.picture,
       })
     }
 
+    const random = Math.floor((Math.random() + 1) * 100)
+
     const token = app.jwt.sign(
       {
-        name: user.name,
-        username: user.username,
-        profile_photo: user.profile_photo,
+        name: userInfo.name,
+        username: `linkedin${random}_${userInfo.name}`,
+        profile_photo: userInfo.picture,
       },
       {
-        sub: user.id,
+        sub: userInfo.sub,
         expiresIn,
       },
     )
