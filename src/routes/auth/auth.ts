@@ -144,11 +144,10 @@ export async function Auth(app: FastifyInstance) {
 
     const userInfo = userSchema.parse(userResponse.data)
 
-    const user = await userModel.findOne({ githubId: userInfo.id })
+    let user = await userModel.findOne({ githubId: userInfo.id })
 
     if (!user) {
-      console.log('[github]: creating new user')
-      await userModel.create({
+      user = await userModel.create({
         githubId: userInfo.id,
         name: userInfo.name,
         username: userInfo.login,
@@ -158,12 +157,12 @@ export async function Auth(app: FastifyInstance) {
 
     const token = app.jwt.sign(
       {
-        name: userInfo.name,
-        username: userInfo.login,
-        profile_photo: userInfo.avatar_url,
+        name: user.name,
+        username: user.username,
+        profile_photo: user.profile_photo,
       },
       {
-        sub: userInfo.id.toString(),
+        sub: user.id.toString(),
         expiresIn: '30 days',
       },
     )
@@ -221,29 +220,28 @@ export async function Auth(app: FastifyInstance) {
 
     const userInfo = userSchema.parse(userResponse.data)
 
-    const user = await userModel.findOne({ linkedinId: userInfo.sub })
+    let user = await userModel.findOne({ linkedinId: userInfo.sub })
+
+    const random = Math.floor((Math.random() + 1) * 100)
 
     if (!user) {
-      console.log('[linkedin]: creating new user')
-      await userModel.create({
+      user = await userModel.create({
         linkedinId: userInfo.sub,
         name: userInfo.name,
         email: userInfo.email,
-        username: `Linkedin_${userInfo.name}`,
+        username: `Linkedin${random}_${userInfo.name}`,
         profile_photo: userInfo.picture,
       })
     }
 
-    const random = Math.floor((Math.random() + 1) * 100)
-
     const token = app.jwt.sign(
       {
-        name: userInfo.name,
-        username: `linkedin${random}_${userInfo.name}`,
-        profile_photo: userInfo.picture,
+        name: user.name,
+        username: user.name,
+        profile_photo: user.profile_photo,
       },
       {
-        sub: userInfo.sub,
+        sub: user.id,
         expiresIn,
       },
     )
