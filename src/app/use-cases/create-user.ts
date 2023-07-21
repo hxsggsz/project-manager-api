@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from 'src/app/entities/user';
 import { UserRepository } from '../repositories/user-repository';
 import { UserAlreadyRegistered } from './errors/user-already-registered';
+import * as bcrypt from 'bcrypt';
 
 interface CreateUserRequest {
   name: string;
@@ -20,11 +21,14 @@ export class CreateUser {
   constructor(private userRepo: UserRepository) {}
 
   async execute(req: CreateUserRequest): Promise<CreateUserResponse> {
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(req.password, salt);
+
     const user = new User({
       name: req.name,
       profilePhoto: req.profilePhoto,
       email: req.email,
-      password: req.password,
+      password: hashPassword,
       username: req.username,
       githubId: req.githubId ?? null,
       linkedinId: req.linkedinId ?? null,
