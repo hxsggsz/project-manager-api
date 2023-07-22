@@ -14,7 +14,7 @@ export class PrismaUserMappers {
         username: new UserInfoUsername(raw.username),
         email: new UserInfoEmail(raw.email),
         password: new UserInfoPassword(raw.password),
-        profilePhoto: new UserInfoProfilePhoto(raw.password),
+        profilePhoto: new UserInfoProfilePhoto(raw.profilePhoto),
         createdAt: raw.createdAt,
         githubId: raw.githubId,
         linkedinId: raw.linkedinId,

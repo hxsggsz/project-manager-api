@@ -2,7 +2,7 @@ export class UserInfoName {
   private name: string;
 
   private validateName(name: string): boolean {
-    return name.length > 3 && name.length <= 8;
+    return name.length > 3 && name.length <= 15;
   }
 
   constructor(name: string) {
