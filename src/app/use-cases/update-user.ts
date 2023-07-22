@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from 'src/app/repositories/user-repository';
 import { UserNotFound } from './errors/user-not-found';
+import { UserInfoName } from '../entities/user/user-info-name';
+import { UserInfoUsername } from '../entities/user/user-info-username';
+import { UserInfoProfilePhoto } from '../entities/user/user-info-profile-photo';
 
 interface UpdateUserRequest {
   UserId: string;
-  name: string;
-  username: string;
-  profilePhoto: string;
+  name: UserInfoName;
+  username: UserInfoUsername;
+  profilePhoto: UserInfoProfilePhoto;
 }
 
 type UpdateUserResponse = void;

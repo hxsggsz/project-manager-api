@@ -10,7 +10,7 @@ export class UserController {
   async SignUp(@Body() body: CreateUserDto) {
     const { email, name, password, profilePhoto, username } = body;
 
-    return await this.createUser.execute({
+    await this.createUser.execute({
       email,
       name,
       password,

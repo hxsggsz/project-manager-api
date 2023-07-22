@@ -1,14 +1,19 @@
 import { randomUUID } from 'node:crypto';
 import { Replace } from 'src/helpers/replace';
+import { UserInfoName } from './user-info-name';
+import { UserInfoUsername } from './user-info-username';
+import { UserInfoProfilePhoto } from './user-info-profile-photo';
+import { UserInfoEmail } from './user-info-email';
+import { UserInfoPassword } from './user-info-password';
 
 export interface UserProps {
-  name: string;
+  name: UserInfoName;
   githubId?: string | null;
   linkedinId?: string | null;
-  username: string;
-  profilePhoto: string;
-  email: string;
-  password: string;
+  username: UserInfoUsername;
+  profilePhoto: UserInfoProfilePhoto;
+  email: UserInfoEmail;
+  password: UserInfoPassword;
   createdAt: Date;
 }
 
@@ -28,43 +33,43 @@ export class User {
     return this._id;
   }
 
-  public set name(name: string) {
+  public set name(name: UserInfoName) {
     this.props.name = name;
   }
 
-  public get name(): string {
+  public get name(): UserInfoName {
     return this.props.name;
   }
 
-  public set username(username: string) {
+  public set username(username: UserInfoUsername) {
     this.props.username = username;
   }
 
-  public get username(): string {
+  public get username(): UserInfoUsername {
     return this.props.username;
   }
 
-  public set profilePhoto(profilePhoto: string) {
+  public set profilePhoto(profilePhoto: UserInfoProfilePhoto) {
     this.props.profilePhoto = profilePhoto;
   }
 
-  public get profilePhoto(): string {
+  public get profilePhoto(): UserInfoProfilePhoto {
     return this.props.profilePhoto;
   }
 
-  public set email(email: string) {
+  public set email(email: UserInfoEmail) {
     this.props.email = email;
   }
 
-  public get email(): string {
+  public get email(): UserInfoEmail {
     return this.props.email;
   }
 
-  public set password(password: string) {
+  public set password(password: UserInfoPassword) {
     this.props.password = password;
   }
 
-  public get password(): string {
+  public get password(): UserInfoPassword {
     return this.props.password;
   }
 
@@ -92,7 +97,11 @@ export class User {
     return this.props.linkedinId;
   }
 
-  public updateUser(username: string, name: string, profilePhoto: string) {
+  public updateUser(
+    username: UserInfoUsername,
+    name: UserInfoName,
+    profilePhoto: UserInfoProfilePhoto,
+  ) {
     this.username = username;
     this.name = name;
     this.profilePhoto = profilePhoto;

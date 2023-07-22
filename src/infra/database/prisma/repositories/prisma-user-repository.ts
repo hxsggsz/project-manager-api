@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from 'src/app/repositories/user-repository';
-import { PrismaService } from '../prisma/prisma.service';
-import { User } from 'src/app/entities/user';
-import { PrismaUserMappers } from '../prisma/mappers/prisma-user-mappers';
+import { UserRepository } from '../../../../app/repositories/user-repository';
+import { PrismaService } from '../prisma.service';
+import { User } from '../../../../app/entities/user/user';
+import { PrismaUserMappers } from '../mappers/prisma-user-mappers';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -14,6 +14,7 @@ export class PrismaUserRepository implements UserRepository {
       data: rawUser,
     });
   }
+
   async update(user: User): Promise<void> {
     const rawUser = PrismaUserMappers.toPrisma(user);
     await this.prisma.user.update({
@@ -23,6 +24,7 @@ export class PrismaUserRepository implements UserRepository {
       data: rawUser,
     });
   }
+
   async findUserById(userId: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
