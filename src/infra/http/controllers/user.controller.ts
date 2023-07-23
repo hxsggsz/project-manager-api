@@ -1,7 +1,7 @@
 import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import { CreateUser } from '../../../app/use-cases/create-user';
 import { CreateUserDTO } from '../dtos/create-user-dto';
-import { UpdateUserDTO } from '../dtos/update-user-DTO';
+import { UpdateUserDTO } from '../dtos/update-user-dto';
 import { UpdateUser } from '../../../app/use-cases/update-user';
 
 @Controller()
