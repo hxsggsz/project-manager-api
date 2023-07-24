@@ -15,8 +15,6 @@ interface CreateUserRequest {
   username: string;
   email: string;
   password: string;
-  githubId?: string | null;
-  linkedinId?: string | null;
 }
 
 interface CreateUserResponse {
@@ -37,8 +35,6 @@ export class CreateUser {
       email: new UserInfoEmail(req.email),
       password: new UserInfoPassword(hashPassword),
       username: new UserInfoUsername(req.username),
-      githubId: req.githubId ?? null,
-      linkedinId: req.linkedinId ?? null,
     });
 
     const checkUser = await this.userRepo.findUserByEmail(user.email.value);

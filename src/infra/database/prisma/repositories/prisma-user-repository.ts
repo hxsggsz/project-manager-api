@@ -44,4 +44,24 @@ export class PrismaUserRepository implements UserRepository {
 
     return PrismaUserMappers.toDomain(user);
   }
+
+  async findUserByGithubId(githubId: string): Promise<User | null> {
+    const githubUser = await this.prisma.user.findFirst({
+      where: { githubId },
+    });
+
+    if (!githubUser) return null;
+
+    return PrismaUserMappers.toDomain(githubUser);
+  }
+
+  async findUserByLinkedinId(linkedinId: string): Promise<User | null> {
+    const linkedinUser = await this.prisma.user.findFirst({
+      where: { linkedinId },
+    });
+
+    if (!linkedinUser) return null;
+
+    return PrismaUserMappers.toDomain(linkedinUser);
+  }
 }

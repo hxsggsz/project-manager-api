@@ -12,8 +12,8 @@ export interface UserProps {
   linkedinId?: string | null;
   username: UserInfoUsername;
   profilePhoto: UserInfoProfilePhoto;
-  email: UserInfoEmail;
-  password: UserInfoPassword;
+  email?: UserInfoEmail | null;
+  password?: UserInfoPassword | null;
   createdAt: Date;
 }
 

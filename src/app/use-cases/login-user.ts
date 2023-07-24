@@ -36,9 +36,9 @@ export class LoginUser {
 
     const token = {
       sub: userToLogin.id,
-      name: userToLogin.name,
-      username: userToLogin.username,
-      profile_photo: userToLogin.profilePhoto,
+      name: userToLogin.name.value,
+      username: userToLogin.username.value,
+      profile_photo: userToLogin.profilePhoto.value,
     };
 
     return {

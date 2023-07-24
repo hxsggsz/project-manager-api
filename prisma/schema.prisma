@@ -17,7 +17,7 @@ model user {
   linkedinId   String?
   username     String   @unique
   profilePhoto String
-  email        String   @unique
-  password     String
+  email        String?   @unique
+  password     String?
   createdAt    DateTime @default(now())
 }
