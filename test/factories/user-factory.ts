@@ -13,7 +13,7 @@ export function makeUser(override: Override = {}) {
     username: new UserInfoUsername('username'),
     email: new UserInfoEmail('test@gmail.com'),
     profilePhoto: new UserInfoProfilePhoto('https://image.com'),
-    password: new UserInfoPassword('password!A1'),
+    password: new UserInfoPassword('teste!A1'),
     ...override,
   });
 }
