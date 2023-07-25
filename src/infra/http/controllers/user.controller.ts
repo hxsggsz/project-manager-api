@@ -8,6 +8,8 @@ import { LoginUserDTO } from '../dtos/login-user-dto';
 import { ThirdPartyLoginDTO } from '../dtos/third-party-login-dto';
 import { LoginGithubUser } from '../../../app/use-cases/login-github-user';
 import { LoginLinkedinUser } from 'src/app/use-cases/login-linkedin-user';
+import { RefreshToken } from 'src/app/use-cases/refresh-token-user';
+import { RefreshTokenDTO } from '../dtos/refresh-token-dto';
 
 @Controller()
 export class UserController {
@@ -17,19 +19,12 @@ export class UserController {
     private loginUser: LoginUser,
     private loginGithub: LoginGithubUser,
     private loginLinkedin: LoginLinkedinUser,
+    private refreshToken: RefreshToken,
   ) {}
 
   @Post('signUp')
   async SignUp(@Body() body: CreateUserDTO) {
-    const { email, name, password, profilePhoto, username } = body;
-
-    await this.createUser.execute({
-      email,
-      name,
-      password,
-      profilePhoto,
-      username,
-    });
+    await this.createUser.execute(body);
   }
 
   @Put('updateUser/:id')
@@ -41,28 +36,29 @@ export class UserController {
 
   @Post('login')
   async LoginUser(@Body() body: LoginUserDTO) {
-    const { email, password } = body;
+    const { access_token, refresh_token } = await this.loginUser.execute(body);
 
-    const { access_token } = await this.loginUser.execute({ email, password });
-
-    return { access_token };
+    return { access_token, refresh_token };
   }
 
   @Post('github')
   async LoginGithub(@Body() body: ThirdPartyLoginDTO) {
-    const { code } = body;
-
-    const { access_token } = await this.loginGithub.execute({ code });
+    const { access_token } = await this.loginGithub.execute(body);
 
     return { access_token };
   }
 
   @Post('linkedin')
   async LoginLinkedin(@Body() body: ThirdPartyLoginDTO) {
-    const { code } = body;
-
-    const { access_token } = await this.loginLinkedin.execute({ code });
+    const { access_token } = await this.loginLinkedin.execute(body);
 
     return { access_token };
+  }
+
+  @Post('refreshToken')
+  async RefreshToken(@Body() body: RefreshTokenDTO) {
+    const { refreshToken } = await this.refreshToken.execute(body);
+
+    return { refreshToken };
   }
 }

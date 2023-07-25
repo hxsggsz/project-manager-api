@@ -11,6 +11,7 @@ interface LoginUserRequest {
 
 interface LoginUserResponse {
   access_token: string;
+  refresh_token: string;
 }
 
 @Injectable()
@@ -43,6 +44,9 @@ export class LoginUser {
 
     return {
       access_token: await this.jwtService.signAsync(token),
+      refresh_token: await this.jwtService.signAsync(token, {
+        secret: 'weqwewqeqweqweqweqw',
+      }),
     };
   }
 }
