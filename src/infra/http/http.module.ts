@@ -7,10 +7,12 @@ import { LoginUser } from 'src/app/use-cases/user/login-user';
 import { LoginGithubUser } from 'src/app/use-cases/user/login-github-user';
 import { RefreshToken } from 'src/app/use-cases/user/refresh-token-user';
 import { LoginLinkedinUser } from 'src/app/use-cases/user/login-linkedin-user';
+import { ProjectController } from './controllers/project.controller';
+import { CreateProject } from 'src/app/use-cases/project/create-project';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [UserController],
+  controllers: [UserController, ProjectController],
   providers: [
     CreateUser,
     UpdateUser,
@@ -18,6 +20,7 @@ import { LoginLinkedinUser } from 'src/app/use-cases/user/login-linkedin-user';
     LoginGithubUser,
     LoginLinkedinUser,
     RefreshToken,
+    CreateProject,
   ],
 })
 export class HttpModule {}

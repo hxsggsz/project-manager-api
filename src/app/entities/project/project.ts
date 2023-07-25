@@ -6,6 +6,7 @@ interface ProjectProps {
   name: ProjectName;
   createdAt: Date;
   ownerId: string;
+  isPublic: boolean;
 }
 export class Project {
   private _id: string;
@@ -37,6 +38,14 @@ export class Project {
 
   public get ownerId(): string {
     return this.props.ownerId;
+  }
+
+  public set isPublic(isPublic: boolean) {
+    this.props.isPublic = isPublic;
+  }
+
+  public get isPublic(): boolean {
+    return this.props.isPublic;
   }
 
   public set createdAt(createdAt: Date) {

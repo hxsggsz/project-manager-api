@@ -7,6 +7,7 @@ describe('projects entity', () => {
 
     const project = new Project({
       name: new ProjectName('testName'),
+      isPublic: true,
       ownerId: 'idTest',
       createdAt: date as unknown as Date,
     });

@@ -26,6 +26,7 @@ model user {
 model projects {
   id           String         @id @unique @default(uuid())
   name         String
+  isPublic     Boolean        @default(false)
   createdAt    DateTime       @default(now())
   participants participants[]
   owner        user?          @relation(fields: [ownerId], references: [id])
