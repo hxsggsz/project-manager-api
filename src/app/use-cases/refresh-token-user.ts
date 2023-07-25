@@ -39,7 +39,7 @@ export class RefreshToken {
     if (!getUser) throw new UserNotFound();
     try {
       await this.jwtService.verifyAsync(refresh_token, {
-        secret: 'criar-outra-chave-segura-para-refresh-token',
+        secret: process.env.SECRET_REFRESH,
       });
       return getUser;
     } catch (error) {

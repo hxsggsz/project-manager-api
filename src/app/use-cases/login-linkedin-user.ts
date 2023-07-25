@@ -85,6 +85,9 @@ export class LoginLinkedinUser {
 
     return {
       access_token: await this.jwtService.signAsync(token),
+      refresh_token: await this.jwtService.signAsync(token, {
+        secret: process.env.SECRET_REFRESH,
+      }),
     };
   }
 }

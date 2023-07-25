@@ -13,6 +13,7 @@ interface LoginGithubRequest {
 
 interface LoginGithubResponse {
   access_token: string;
+  refresh_token: string;
 }
 
 interface GithubUserInfo {
@@ -82,6 +83,9 @@ export class LoginGithubUser {
 
     return {
       access_token: await this.jwtService.signAsync(token),
+      refresh_token: await this.jwtService.signAsync(token, {
+        secret: process.env.SECRET_REFRESH,
+      }),
     };
   }
 }
