@@ -11,13 +11,33 @@ datasource db {
 }
 
 model user {
-  id           String   @unique @default(uuid())
+  id           String     @id @unique @default(uuid())
   name         String
   githubId     String?
   linkedinId   String?
-  username     String   @unique
+  username     String     @unique
   profilePhoto String
-  email        String?   @unique
+  email        String?    @unique
   password     String?
-  createdAt    DateTime @default(now())
+  createdAt    DateTime   @default(now())
+  projects     projects[]
+}
+
+model projects {
+  id           String         @id @unique @default(uuid())
+  name         String
+  createdAt    DateTime       @default(now())
+  participants participants[]
+  owner        user?          @relation(fields: [ownerId], references: [id])
+  ownerId      String?
+}
+
+model participants {
+  id            String    @id @unique @default(uuid())
+  name          String
+  username      String
+  profilePhoto  String
+  participantAt DateTime  @default(now())
+  projects      projects? @relation(fields: [projectsId], references: [id])
+  projectsId    String?
 }

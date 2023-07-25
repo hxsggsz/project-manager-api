@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { UserRepository } from '../repositories/user-repository';
-import { User } from '../entities/user/user';
-import { UserInfoName } from '../entities/user/user-info-name';
-import { UserInfoProfilePhoto } from '../entities/user/user-info-profile-photo';
-import { UserInfoUsername } from '../entities/user/user-info-username';
+import { UserRepository } from '../../repositories/user-repository';
+import { User } from '../../entities/user/user';
+import { UserInfoName } from '../../entities/user/user-info-name';
+import { UserInfoProfilePhoto } from '../../entities/user/user-info-profile-photo';
+import { UserInfoUsername } from '../../entities/user/user-info-username';
 import { JwtService } from '@nestjs/jwt';
-import { UserInfoEmail } from '../entities/user/user-info-email';
+import { UserInfoEmail } from '../../entities/user/user-info-email';
 
 interface LoginLinkedinRequest {
   code: string;

@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../repositories/user-repository';
-import { UserAlreadyRegistered } from './errors/user-already-registered';
+import { UserRepository } from '../../repositories/user-repository';
+import { UserAlreadyRegistered } from '../errors/user-already-registered';
 import * as bcrypt from 'bcrypt';
-import { User } from '../entities/user/user';
-import { UserInfoName } from '../entities/user/user-info-name';
-import { UserInfoProfilePhoto } from '../entities/user/user-info-profile-photo';
-import { UserInfoUsername } from '../entities/user/user-info-username';
-import { UserInfoEmail } from '../entities/user/user-info-email';
-import { UserInfoPassword } from '../entities/user/user-info-password';
+import { User } from '../../entities/user/user';
+import { UserInfoName } from '../../entities/user/user-info-name';
+import { UserInfoProfilePhoto } from '../../entities/user/user-info-profile-photo';
+import { UserInfoUsername } from '../../entities/user/user-info-username';
+import { UserInfoEmail } from '../../entities/user/user-info-email';
+import { UserInfoPassword } from '../../entities/user/user-info-password';
 
 interface CreateUserRequest {
   name: string;

@@ -1,8 +1,8 @@
-import { InMemoryUserRepository } from '../../../test/repositories/in-memory-user-repository';
-import { makeUser } from '../../../test/factories/user-factory';
-import { InMemoryJwtService } from '../../../test/repositories/in-memory-jwt-service';
+import { UserInfoEmail } from '../../../app/entities/user/user-info-email';
+import { makeUser } from '../../../../test/factories/user-factory';
+import { InMemoryJwtService } from '../../../../test/repositories/in-memory-jwt-service';
+import { InMemoryUserRepository } from '../../../../test/repositories/in-memory-user-repository';
 import { RefreshToken } from './refresh-token-user';
-import { UserInfoEmail } from '../entities/user/user-info-email';
 
 describe('refresh token user UseCase', () => {
   it('should be able to recive a new refresh token', async () => {

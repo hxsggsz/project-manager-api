@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../repositories/user-repository';
-import { UserNotFound } from './errors/user-not-found';
-import { UserInfoName } from '../entities/user/user-info-name';
-import { UserInfoUsername } from '../entities/user/user-info-username';
-import { UserInfoProfilePhoto } from '../entities/user/user-info-profile-photo';
+import { UserRepository } from '../../repositories/user-repository';
+import { UserNotFound } from '../errors/user-not-found';
+import { UserInfoName } from '../../entities/user/user-info-name';
+import { UserInfoUsername } from '../../entities/user/user-info-username';
+import { UserInfoProfilePhoto } from '../../entities/user/user-info-profile-photo';
 
 interface UpdateUserRequest {
   id: string;

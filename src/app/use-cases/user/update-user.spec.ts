@@ -1,9 +1,9 @@
-import { makeUser } from '../../../test/factories/user-factory';
-import { InMemoryUserRepository } from '../../../test/repositories/in-memory-user-repository';
-import { UserInfoName } from '../entities/user/user-info-name';
-import { UserInfoUsername } from '../entities/user/user-info-username';
+import { makeUser } from '../../../../test/factories/user-factory';
+import { InMemoryUserRepository } from '../../../../test/repositories/in-memory-user-repository';
+import { UserInfoName } from '../../entities/user/user-info-name';
+import { UserInfoUsername } from '../../entities/user/user-info-username';
 import { UpdateUser } from './update-user';
-import { UserNotFound } from './errors/user-not-found';
+import { UserNotFound } from '../errors/user-not-found';
 
 describe('update user UseCase', () => {
   it('should be able to update the user', async () => {

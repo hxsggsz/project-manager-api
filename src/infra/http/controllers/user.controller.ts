@@ -1,15 +1,15 @@
 import { Body, Controller, Param, Post, Put } from '@nestjs/common';
-import { CreateUser } from '../../../app/use-cases/create-user';
-import { CreateUserDTO } from '../dtos/create-user-dto';
-import { UpdateUserDTO } from '../dtos/update-user-dto';
-import { UpdateUser } from '../../../app/use-cases/update-user';
-import { LoginUser } from 'src/app/use-cases/login-user';
-import { LoginUserDTO } from '../dtos/login-user-dto';
-import { ThirdPartyLoginDTO } from '../dtos/third-party-login-dto';
-import { LoginGithubUser } from '../../../app/use-cases/login-github-user';
-import { LoginLinkedinUser } from 'src/app/use-cases/login-linkedin-user';
-import { RefreshToken } from 'src/app/use-cases/refresh-token-user';
-import { RefreshTokenDTO } from '../dtos/refresh-token-dto';
+import { CreateUser } from '../../../app/use-cases/user/create-user';
+import { CreateUserDTO } from '../dtos/user/create-user-dto';
+import { UpdateUserDTO } from '../dtos/user/update-user-dto';
+import { UpdateUser } from '../../../app/use-cases/user/update-user';
+import { LoginUser } from 'src/app/use-cases/user/login-user';
+import { LoginUserDTO } from '../dtos/user/login-user-dto';
+import { ThirdPartyLoginDTO } from '../dtos/user/third-party-login-dto';
+import { LoginGithubUser } from '../../../app/use-cases/user/login-github-user';
+import { LoginLinkedinUser } from 'src/app/use-cases/user/login-linkedin-user';
+import { RefreshToken } from 'src/app/use-cases/user/refresh-token-user';
+import { RefreshTokenDTO } from '../dtos/user/refresh-token-dto';
 
 @Controller()
 export class UserController {

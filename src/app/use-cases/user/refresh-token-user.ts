@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../repositories/user-repository';
+import { UserRepository } from '../../repositories/user-repository';
 import { JwtService } from '@nestjs/jwt';
-import { UserNotFound } from './errors/user-not-found';
+import { UserNotFound } from '../errors/user-not-found';
 
 interface RefreshTokenRequest {
   refresh_token: string;

@@ -1,10 +1,10 @@
-import { InMemoryUserRepository } from '../../../test/repositories/in-memory-user-repository';
+import { InMemoryUserRepository } from '../../../../test/repositories/in-memory-user-repository';
 import { LoginUser } from './login-user';
-import { makeUser } from '../../../test/factories/user-factory';
-import { UserInfoPassword } from '../entities/user/user-info-password';
+import { makeUser } from '../../../../test/factories/user-factory';
+import { UserInfoPassword } from '../../entities/user/user-info-password';
 import * as bcrypt from 'bcrypt';
-import { InMemoryJwtService } from '../../../test/repositories/in-memory-jwt-service';
-import { UserNotFound } from './errors/user-not-found';
+import { InMemoryJwtService } from '../../../../test/repositories/in-memory-jwt-service';
+import { UserNotFound } from '../errors/user-not-found';
 
 describe('login user UseCase', () => {
   it('should be able to login the user', async () => {

@@ -1,6 +1,6 @@
+import { InMemoryUserRepository } from '../../../../test/repositories/in-memory-user-repository';
+import { UserAlreadyRegistered } from '../errors/user-already-registered';
 import { CreateUser } from './create-user';
-import { InMemoryUserRepository } from '../../../test/repositories/in-memory-user-repository';
-import { UserAlreadyRegistered } from './errors/user-already-registered';
 
 describe('create user UseCase', () => {
   it('should be able to create a new user', async () => {
