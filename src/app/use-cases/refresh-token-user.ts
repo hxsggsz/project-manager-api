@@ -38,10 +38,12 @@ export class RefreshToken {
 
     if (!getUser) throw new UserNotFound();
     try {
-      this.jwtService.verify(refresh_token);
+      await this.jwtService.verifyAsync(refresh_token, {
+        secret: 'criar-outra-chave-segura-para-refresh-token',
+      });
+      return getUser;
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
-    return getUser;
   }
 }

@@ -45,7 +45,7 @@ export class LoginUser {
     return {
       access_token: await this.jwtService.signAsync(token),
       refresh_token: await this.jwtService.signAsync(token, {
-        secret: 'weqwewqeqweqweqweqw',
+        secret: 'criar-outra-chave-segura-para-refresh-token',
       }),
     };
   }
