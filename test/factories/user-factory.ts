@@ -4,10 +4,9 @@ import { UserInfoUsername } from '../../src/app/entities/user/user-info-username
 import { UserInfoEmail } from '../../src/app/entities/user/user-info-email';
 import { UserInfoProfilePhoto } from '../../src/app/entities/user/user-info-profile-photo';
 import { UserInfoPassword } from '../../src/app/entities/user/user-info-password';
+import { Override } from '../../src/helpers/override';
 
-type Override = Partial<UserProps>;
-
-export function makeUser(override: Override = {}) {
+export function makeUser(override: Override<UserProps> = {}): User {
   return new User({
     name: new UserInfoName('test'),
     username: new UserInfoUsername('username'),

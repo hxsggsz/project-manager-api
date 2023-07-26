@@ -2,7 +2,7 @@ import { Replace } from 'src/helpers/replace';
 import { ProjectName } from './project-name';
 import { randomUUID } from 'node:crypto';
 
-interface ProjectProps {
+export interface ProjectProps {
   name: ProjectName;
   createdAt: Date;
   ownerId: string;
@@ -54,5 +54,10 @@ export class Project {
 
   public get createdAt(): Date {
     return this.props.createdAt;
+  }
+
+  public updateProject(name: string, isPublic: boolean) {
+    this.props.name = new ProjectName(name);
+    this.props.isPublic = isPublic;
   }
 }

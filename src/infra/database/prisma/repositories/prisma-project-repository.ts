@@ -16,6 +16,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       },
     });
   }
+
   async update(project: Project): Promise<void> {
     await this.prisma.projects.update({
       where: {
@@ -27,6 +28,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       },
     });
   }
+
   async findAll(ownerId: string): Promise<Project[]> {
     const allProjects = await this.prisma.projects.findMany({
       where: {
@@ -35,13 +37,13 @@ export class PrismaProjectRepository implements ProjectRepository {
     });
     return allProjects.map(PrismaProjectMappers.toDomain);
   }
+
   async findById(projectId: string): Promise<Project | null> {
-    const project = await this.prisma.projects.findFirst({
+    const project = await this.prisma.projects.findUnique({
       where: { id: projectId },
     });
-
     if (!project) return null;
 
-    PrismaProjectMappers.toDomain(project);
+    return PrismaProjectMappers.toDomain(project);
   }
 }

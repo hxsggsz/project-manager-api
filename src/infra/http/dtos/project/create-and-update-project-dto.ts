@@ -1,6 +1,6 @@
 import { IsBoolean, IsNotEmpty, Max, Min } from 'class-validator';
 
-export class CreateProjectDTO {
+export class CreateAndUpdateProjectDTO {
   @Min(5)
   @Max(20)
   @IsNotEmpty()

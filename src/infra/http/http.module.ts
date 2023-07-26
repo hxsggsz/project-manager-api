@@ -9,6 +9,7 @@ import { RefreshToken } from 'src/app/use-cases/user/refresh-token-user';
 import { LoginLinkedinUser } from 'src/app/use-cases/user/login-linkedin-user';
 import { ProjectController } from './controllers/project.controller';
 import { CreateProject } from 'src/app/use-cases/project/create-project';
+import { UpdateProject } from 'src/app/use-cases/project/update-project';
 
 @Module({
   imports: [DatabaseModule],
@@ -21,6 +22,7 @@ import { CreateProject } from 'src/app/use-cases/project/create-project';
     LoginLinkedinUser,
     RefreshToken,
     CreateProject,
+    UpdateProject,
   ],
 })
 export class HttpModule {}
