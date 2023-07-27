@@ -12,6 +12,7 @@ import { CreateProject } from 'src/app/use-cases/project/create-project';
 import { UpdateProject } from 'src/app/use-cases/project/update-project';
 import { GetAllProjects } from 'src/app/use-cases/project/get-all-projects';
 import { GetProjectById } from 'src/app/use-cases/project/get-project-by-id';
+import { DeleteProject } from 'src/app/use-cases/project/delete-project';
 
 @Module({
   imports: [DatabaseModule],
@@ -27,6 +28,7 @@ import { GetProjectById } from 'src/app/use-cases/project/get-project-by-id';
     GetProjectById,
     CreateProject,
     UpdateProject,
+    DeleteProject,
   ],
 })
 export class HttpModule {}

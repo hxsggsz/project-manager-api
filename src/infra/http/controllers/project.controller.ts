@@ -1,9 +1,18 @@
-import { Controller, Post, Param, Body, Put, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Param,
+  Body,
+  Put,
+  Get,
+  Delete,
+} from '@nestjs/common';
 import { CreateProject } from '../../../app/use-cases/project/create-project';
 import { UpdateProject } from '../../../app/use-cases/project/update-project';
 import { CreateAndUpdateProjectDTO } from '../dtos/project/create-and-update-project-dto';
 import { GetAllProjects } from 'src/app/use-cases/project/get-all-projects';
 import { GetProjectById } from 'src/app/use-cases/project/get-project-by-id';
+import { DeleteProject } from 'src/app/use-cases/project/delete-project';
 
 @Controller('project')
 export class ProjectController {
@@ -12,6 +21,7 @@ export class ProjectController {
     private getprojectById: GetProjectById,
     private createProject: CreateProject,
     private updateProject: UpdateProject,
+    private deleteProject: DeleteProject,
   ) {}
 
   @Get('/:ownerId')
@@ -46,5 +56,10 @@ export class ProjectController {
     const { name, isPublic } = body;
 
     await this.updateProject.execute({ projectId, name, isPublic });
+  }
+
+  @Delete('/:projectId')
+  async DeleteProject(@Param('projectId') projectId: string) {
+    await this.deleteProject.execute({ projectId });
   }
 }
