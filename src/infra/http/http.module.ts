@@ -10,6 +10,7 @@ import { LoginLinkedinUser } from 'src/app/use-cases/user/login-linkedin-user';
 import { ProjectController } from './controllers/project.controller';
 import { CreateProject } from 'src/app/use-cases/project/create-project';
 import { UpdateProject } from 'src/app/use-cases/project/update-project';
+import { GetAllProjects } from 'src/app/use-cases/project/get-all-projects';
 
 @Module({
   imports: [DatabaseModule],
@@ -21,6 +22,7 @@ import { UpdateProject } from 'src/app/use-cases/project/update-project';
     LoginGithubUser,
     LoginLinkedinUser,
     RefreshToken,
+    GetAllProjects,
     CreateProject,
     UpdateProject,
   ],

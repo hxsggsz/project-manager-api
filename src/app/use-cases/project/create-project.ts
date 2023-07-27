@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ProjectName } from '../../../app/entities/project/project-name';
 import { Project } from '../../../app/entities/project/project';
 import { ProjectRepository } from '../../../app/repositories/project-repository';
 
@@ -21,7 +20,7 @@ export class CreateProject {
     const { name, isPublic, ownerId } = req;
 
     const project = new Project({
-      name: new ProjectName(name),
+      name,
       isPublic,
       ownerId,
     });

@@ -3,7 +3,7 @@ import { ProjectName } from './project-name';
 import { randomUUID } from 'node:crypto';
 
 export interface ProjectProps {
-  name: ProjectName;
+  name: string;
   createdAt: Date;
   ownerId: string;
   isPublic: boolean;
@@ -24,11 +24,12 @@ export class Project {
     return this._id;
   }
 
-  public set name(name: ProjectName) {
-    this.props.name = name;
+  public set name(name: string) {
+    const validName = new ProjectName(name);
+    this.props.name = validName.value;
   }
 
-  public get name(): ProjectName {
+  public get name(): string {
     return this.props.name;
   }
 
@@ -57,7 +58,8 @@ export class Project {
   }
 
   public updateProject(name: string, isPublic: boolean) {
-    this.props.name = new ProjectName(name);
+    const validName = new ProjectName(name);
+    this.props.name = validName.value;
     this.props.isPublic = isPublic;
   }
 }

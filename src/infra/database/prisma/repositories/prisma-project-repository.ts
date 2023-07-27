@@ -10,7 +10,7 @@ export class PrismaProjectRepository implements ProjectRepository {
   async create(project: Project): Promise<void> {
     await this.prisma.projects.create({
       data: {
-        name: project.name.value,
+        name: project.name,
         isPublic: project.isPublic,
         owner: { connect: { id: project.ownerId } },
       },
@@ -23,7 +23,7 @@ export class PrismaProjectRepository implements ProjectRepository {
         id: project.id,
       },
       data: {
-        name: project.name.value,
+        name: project.name,
         isPublic: project.isPublic,
       },
     });
