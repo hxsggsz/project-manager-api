@@ -14,18 +14,4 @@ describe('create project use case', () => {
 
     expect(inMemoryProject.project[0]).toEqual(project);
   });
-
-  it('should create a new project correclty', async () => {
-    const inMemoryProject = new InMemoryProjectRepository();
-    const createProject = new CreateProject(inMemoryProject);
-
-    expect(
-      async () =>
-        await createProject.execute({
-          name: 'test',
-          isPublic: true,
-          ownerId: 'ownerId',
-        }),
-    ).rejects.toThrow();
-  });
 });

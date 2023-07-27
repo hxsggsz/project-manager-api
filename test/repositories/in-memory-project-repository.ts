@@ -7,6 +7,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
   async create(project: Project): Promise<void> {
     this.project.push(project);
   }
+
   async update(project: Project): Promise<void> {
     const projectIndex = this.project.findIndex(
       (proj) => proj.id === project.id,
@@ -16,11 +17,18 @@ export class InMemoryProjectRepository implements ProjectRepository {
       this.project[projectIndex] = project;
     }
   }
+
   async findAll(ownerId: string): Promise<Project[]> {
     return this.project.filter((proj) => proj.ownerId === ownerId);
   }
 
   async findById(projectId: string): Promise<Project | null> {
     return this.project.find((proj) => proj.id === projectId);
+  }
+
+  async deleteById(projectId: string): Promise<void> {
+    const projectRemoved = this.project.filter((proj) => proj.id !== projectId);
+
+    this.project = projectRemoved;
   }
 }

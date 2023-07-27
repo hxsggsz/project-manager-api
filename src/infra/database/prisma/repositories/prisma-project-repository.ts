@@ -7,6 +7,7 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {
   constructor(private prisma: PrismaService) {}
+
   async create(project: Project): Promise<void> {
     await this.prisma.projects.create({
       data: {
@@ -45,5 +46,11 @@ export class PrismaProjectRepository implements ProjectRepository {
     if (!project) return null;
 
     return PrismaProjectMappers.toDomain(project);
+  }
+
+  async deleteById(projectId: string): Promise<void> {
+    await this.prisma.projects.delete({
+      where: { id: projectId },
+    });
   }
 }

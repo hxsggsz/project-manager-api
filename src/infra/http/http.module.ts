@@ -11,6 +11,7 @@ import { ProjectController } from './controllers/project.controller';
 import { CreateProject } from 'src/app/use-cases/project/create-project';
 import { UpdateProject } from 'src/app/use-cases/project/update-project';
 import { GetAllProjects } from 'src/app/use-cases/project/get-all-projects';
+import { GetProjectById } from 'src/app/use-cases/project/get-project-by-id';
 
 @Module({
   imports: [DatabaseModule],
@@ -23,6 +24,7 @@ import { GetAllProjects } from 'src/app/use-cases/project/get-all-projects';
     LoginLinkedinUser,
     RefreshToken,
     GetAllProjects,
+    GetProjectById,
     CreateProject,
     UpdateProject,
   ],

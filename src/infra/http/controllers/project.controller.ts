@@ -3,11 +3,13 @@ import { CreateProject } from '../../../app/use-cases/project/create-project';
 import { UpdateProject } from '../../../app/use-cases/project/update-project';
 import { CreateAndUpdateProjectDTO } from '../dtos/project/create-and-update-project-dto';
 import { GetAllProjects } from 'src/app/use-cases/project/get-all-projects';
+import { GetProjectById } from 'src/app/use-cases/project/get-project-by-id';
 
 @Controller('project')
 export class ProjectController {
   constructor(
     private getAllProjects: GetAllProjects,
+    private getprojectById: GetProjectById,
     private createProject: CreateProject,
     private updateProject: UpdateProject,
   ) {}
@@ -17,6 +19,13 @@ export class ProjectController {
     const { projects } = await this.getAllProjects.execute({ ownerId });
 
     return { projects };
+  }
+
+  @Get('/unique/:projectId')
+  async GetProjectById(@Param('projectId') projectId: string) {
+    const { project } = await this.getprojectById.execute({ projectId });
+
+    return { project };
   }
 
   @Post('/:ownerId')

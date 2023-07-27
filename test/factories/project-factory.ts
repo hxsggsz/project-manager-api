@@ -4,7 +4,7 @@ import { Override } from '../../src/helpers/override';
 
 export function makeProject(override: Override<ProjectProps> = {}): Project {
   return new Project({
-    name: new ProjectName('name test'),
+    name: 'name test',
     isPublic: true,
     ownerId: 'owneruuid',
     ...override,
