@@ -43,7 +43,7 @@ export class PrismaProjectRepository implements ProjectRepository {
     const project = await this.prisma.projects.findUnique({
       where: { id: projectId },
     });
-    if (!project) return null;
+    if (!project) null;
 
     return PrismaProjectMappers.toDomain(project);
   }

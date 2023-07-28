@@ -30,7 +30,7 @@ export class PrismaUserRepository implements UserRepository {
       where: { id: userId },
     });
 
-    if (!user) return null;
+    if (!user) null;
 
     return PrismaUserMappers.toDomain(user);
   }

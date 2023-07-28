@@ -4,6 +4,8 @@ import { UserRepository } from 'src/app/repositories/user-repository';
 import { PrismaUserRepository } from './prisma/repositories/prisma-user-repository';
 import { ProjectRepository } from '../../app/repositories/project-repository';
 import { PrismaProjectRepository } from './prisma/repositories/prisma-project-repository';
+import { ParticipantRepository } from 'src/app/repositories/participant-repository';
+import { PrismaParticipantRepository } from './prisma/repositories/prisma-participant-repository';
 
 @Module({
   providers: [
@@ -16,7 +18,11 @@ import { PrismaProjectRepository } from './prisma/repositories/prisma-project-re
       provide: ProjectRepository,
       useClass: PrismaProjectRepository,
     },
+    {
+      provide: ParticipantRepository,
+      useClass: PrismaParticipantRepository,
+    },
   ],
-  exports: [UserRepository, ProjectRepository],
+  exports: [UserRepository, ProjectRepository, ParticipantRepository],
 })
 export class DatabaseModule {}

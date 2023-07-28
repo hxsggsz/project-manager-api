@@ -24,6 +24,13 @@ export class Participant {
     };
   }
 
+  public get id(): string {
+    return this._id;
+  }
+
+  public set id(id: string) {
+    this._id = id;
+  }
   public get name(): string {
     return this.props.name;
   }
@@ -57,7 +64,7 @@ export class Participant {
   }
 
   public get projectId(): string {
-    return this.projectId;
+    return this.props.projectId;
   }
 
   public set projectId(projectId: string) {

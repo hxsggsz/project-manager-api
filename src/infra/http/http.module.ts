@@ -13,10 +13,14 @@ import { UpdateProject } from 'src/app/use-cases/project/update-project';
 import { GetAllProjects } from 'src/app/use-cases/project/get-all-projects';
 import { GetProjectById } from 'src/app/use-cases/project/get-project-by-id';
 import { DeleteProject } from 'src/app/use-cases/project/delete-project';
+import { ParticipantController } from './controllers/participant.controller';
+import { AddNewParticipant } from 'src/app/use-cases/participant/add-new-participant';
+import { GetAllParticipants } from 'src/app/use-cases/participant/get-all-Participants';
+import { RemoveParticipant } from 'src/app/use-cases/participant/remove-participant';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [UserController, ProjectController],
+  controllers: [UserController, ProjectController, ParticipantController],
   providers: [
     CreateUser,
     UpdateUser,
@@ -29,6 +33,9 @@ import { DeleteProject } from 'src/app/use-cases/project/delete-project';
     CreateProject,
     UpdateProject,
     DeleteProject,
+    AddNewParticipant,
+    GetAllParticipants,
+    RemoveParticipant,
   ],
 })
 export class HttpModule {}

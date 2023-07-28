@@ -1,4 +1,3 @@
-import { ProjectName } from '../../src/app/entities/project/project-name';
 import { Project, ProjectProps } from '../../src/app/entities/project/project';
 import { Override } from '../../src/helpers/override';
 

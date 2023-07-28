@@ -31,7 +31,7 @@ export class ProjectController {
     return { projects };
   }
 
-  @Get('/unique/:projectId')
+  @Get('/one/:projectId')
   async GetProjectById(@Param('projectId') projectId: string) {
     const { project } = await this.getprojectById.execute({ projectId });
 
