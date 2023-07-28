@@ -17,7 +17,7 @@ model user {
   linkedinId   String?
   username     String     @unique
   profilePhoto String
-  email        String?    @unique
+  email        String?
   password     String?
   createdAt    DateTime   @default(now())
   projects     projects[]
@@ -34,11 +34,11 @@ model projects {
 }
 
 model participants {
-  id            String    @id @unique @default(uuid())
-  name          String
-  username      String
-  profilePhoto  String
-  participantAt DateTime  @default(now())
-  projects      projects? @relation(fields: [projectsId], references: [id])
-  projectsId    String?
+  id           String    @id @unique @default(uuid())
+  name         String
+  username     String
+  profilePhoto String
+  makePartAt   DateTime  @default(now())
+  projects     projects? @relation(fields: [projectsId], references: [id])
+  projectsId   String?
 }
