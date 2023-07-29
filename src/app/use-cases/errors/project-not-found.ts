@@ -1,5 +1,7 @@
-export class ProjectNotFound extends Error {
-  constructor() {
-    super('project not found');
+import { ServerError } from './server-error';
+
+export class ProjectNotFound extends ServerError {
+  constructor(statusCode = 404) {
+    super('project not found', statusCode);
   }
 }

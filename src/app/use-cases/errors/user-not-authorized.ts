@@ -1,5 +1,7 @@
-export class UserNotAuthorized extends Error {
-  constructor() {
-    super('User not found');
+import { ServerError } from './server-error';
+
+export class UserNotAuthorized extends ServerError {
+  constructor(statusCode = 401) {
+    super('User not found', statusCode);
   }
 }

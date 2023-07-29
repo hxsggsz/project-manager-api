@@ -1,5 +1,7 @@
-export class ParticipantNotFound extends Error {
-  constructor() {
-    super('participant not found');
+import { ServerError } from './server-error';
+
+export class ParticipantNotFound extends ServerError {
+  constructor(statusCode = 404) {
+    super('participant not found', statusCode);
   }
 }
