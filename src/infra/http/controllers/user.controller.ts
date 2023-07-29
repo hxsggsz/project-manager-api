@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateUser } from '../../../app/use-cases/user/create-user';
 import { CreateUserDTO } from '../dtos/user/create-user-dto';
 import { UpdateUserDTO } from '../dtos/user/update-user-dto';
@@ -24,12 +32,14 @@ export class UserController {
   ) {}
 
   @SkipAuth()
+  @HttpCode(HttpStatus.OK)
   @Post('signUp')
   async SignUp(@Body() body: CreateUserDTO) {
     await this.createUser.execute(body);
   }
 
   @SkipAuth()
+  @HttpCode(HttpStatus.OK)
   @Put('updateUser/:id')
   async UpdateUser(@Param('id') id: string, @Body() body: UpdateUserDTO) {
     const { name, profilePhoto, username } = body;
@@ -38,6 +48,7 @@ export class UserController {
   }
 
   @SkipAuth()
+  @HttpCode(HttpStatus.OK)
   @Post('login')
   async LoginUser(@Body() body: LoginUserDTO) {
     const { access_token, refresh_token } = await this.loginUser.execute(body);
@@ -46,6 +57,7 @@ export class UserController {
   }
 
   @SkipAuth()
+  @HttpCode(HttpStatus.OK)
   @Post('github')
   async LoginGithub(@Body() body: ThirdPartyLoginDTO) {
     const { access_token } = await this.loginGithub.execute(body);
@@ -54,6 +66,7 @@ export class UserController {
   }
 
   @SkipAuth()
+  @HttpCode(HttpStatus.OK)
   @Post('linkedin')
   async LoginLinkedin(@Body() body: ThirdPartyLoginDTO) {
     const { access_token } = await this.loginLinkedin.execute(body);
@@ -61,6 +74,7 @@ export class UserController {
     return { access_token };
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('refreshToken')
   async RefreshToken(@Body() body: RefreshTokenDTO) {
     const { refreshToken } = await this.refreshToken.execute(body);
