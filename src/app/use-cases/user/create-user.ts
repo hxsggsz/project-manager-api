@@ -3,11 +3,6 @@ import { UserRepository } from '../../repositories/user-repository';
 import { UserAlreadyRegistered } from '../errors/user-already-registered';
 import * as bcrypt from 'bcrypt';
 import { User } from '../../entities/user/user';
-import { UserInfoName } from '../../entities/user/user-info-name';
-import { UserInfoProfilePhoto } from '../../entities/user/user-info-profile-photo';
-import { UserInfoUsername } from '../../entities/user/user-info-username';
-import { UserInfoEmail } from '../../entities/user/user-info-email';
-import { UserInfoPassword } from '../../entities/user/user-info-password';
 
 interface CreateUserRequest {
   name: string;
@@ -30,14 +25,14 @@ export class CreateUser {
     const hashPassword = await bcrypt.hash(req.password, salt);
 
     const user = new User({
-      name: new UserInfoName(req.name),
-      profilePhoto: new UserInfoProfilePhoto(req.profilePhoto),
-      email: new UserInfoEmail(req.email),
-      password: new UserInfoPassword(hashPassword),
-      username: new UserInfoUsername(req.username),
+      name: req.name,
+      profilePhoto: req.profilePhoto,
+      email: req.email,
+      password: hashPassword,
+      username: req.username,
     });
 
-    const checkUser = await this.userRepo.findUserByEmail(user.email.value);
+    const checkUser = await this.userRepo.findUserByEmail(user.email);
 
     if (checkUser) throw new UserAlreadyRegistered();
 

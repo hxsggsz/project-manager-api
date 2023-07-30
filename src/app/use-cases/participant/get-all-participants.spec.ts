@@ -11,7 +11,7 @@ describe('get all participants use case', () => {
     await inMemoryPartRepo.addParticipant(participant);
 
     const { allParticipants } = await inMemoryGetAllPart.execute({
-      projectId: participant.projectId,
+      projectsId: participant.projectId,
     });
 
     expect(allParticipants.length).toEqual(1);
@@ -23,7 +23,7 @@ describe('get all participants use case', () => {
     const inMemoryGetAllPart = new GetAllParticipants(inMemoryPartRepo);
 
     const { allParticipants } = await inMemoryGetAllPart.execute({
-      projectId: 'project-123',
+      projectsId: 'project-123',
     });
 
     expect(allParticipants).toEqual([]);

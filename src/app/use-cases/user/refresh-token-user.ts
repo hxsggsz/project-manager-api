@@ -23,9 +23,9 @@ export class RefreshToken {
 
     const token = {
       sub: payload.id,
-      name: payload.name.value,
-      username: payload.username.value,
-      profilePhoto: payload.profilePhoto.value,
+      name: payload.name,
+      username: payload.username,
+      profilePhoto: payload.profilePhoto,
     };
     return {
       refreshToken: await this.jwtService.signAsync(token),

@@ -7,13 +7,13 @@ import { UserInfoEmail } from './user-info-email';
 import { UserInfoPassword } from './user-info-password';
 
 export interface UserProps {
-  name: UserInfoName;
+  name: string;
   githubId?: string | null;
   linkedinId?: string | null;
-  username: UserInfoUsername;
-  profilePhoto: UserInfoProfilePhoto;
-  email?: UserInfoEmail | null;
-  password?: UserInfoPassword | null;
+  username: string;
+  profilePhoto: string;
+  email?: string | null;
+  password?: string | null;
   createdAt: Date;
 }
 
@@ -33,43 +33,48 @@ export class User {
     return this._id;
   }
 
-  public set name(name: UserInfoName) {
-    this.props.name = name;
+  public set name(name: string) {
+    const validName = new UserInfoName(name);
+    this.props.name = validName.value;
   }
 
-  public get name(): UserInfoName {
+  public get name(): string {
     return this.props.name;
   }
 
-  public set username(username: UserInfoUsername) {
-    this.props.username = username;
+  public set username(username: string) {
+    const validUsername = new UserInfoUsername(username);
+    this.props.username = validUsername.value;
   }
 
-  public get username(): UserInfoUsername {
+  public get username(): string {
     return this.props.username;
   }
 
-  public set profilePhoto(profilePhoto: UserInfoProfilePhoto) {
-    this.props.profilePhoto = profilePhoto;
+  public set profilePhoto(profilePhoto: string) {
+    const validPhoto = new UserInfoProfilePhoto(profilePhoto);
+    this.props.profilePhoto = validPhoto.value;
   }
 
-  public get profilePhoto(): UserInfoProfilePhoto {
+  public get profilePhoto(): string {
     return this.props.profilePhoto;
   }
 
-  public set email(email: UserInfoEmail) {
-    this.props.email = email;
+  public set email(email: string) {
+    const validEmail = new UserInfoEmail(email);
+    this.props.email = validEmail.value;
   }
 
-  public get email(): UserInfoEmail {
+  public get email(): string {
     return this.props.email;
   }
 
-  public set password(password: UserInfoPassword) {
-    this.props.password = password;
+  public set password(password: string) {
+    const validPassword = new UserInfoPassword(password);
+    this.props.password = validPassword.value;
   }
 
-  public get password(): UserInfoPassword {
+  public get password(): string {
     return this.props.password;
   }
 
@@ -97,11 +102,7 @@ export class User {
     return this.props.linkedinId;
   }
 
-  public updateUser(
-    username: UserInfoUsername,
-    name: UserInfoName,
-    profilePhoto: UserInfoProfilePhoto,
-  ) {
+  public updateUser(username: string, name: string, profilePhoto: string) {
     this.username = username;
     this.name = name;
     this.profilePhoto = profilePhoto;

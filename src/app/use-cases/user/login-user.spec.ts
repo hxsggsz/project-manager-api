@@ -1,7 +1,6 @@
 import { InMemoryUserRepository } from '../../../../test/repositories/in-memory-user-repository';
 import { LoginUser } from './login-user';
 import { makeUser } from '../../../../test/factories/user-factory';
-import { UserInfoPassword } from '../../entities/user/user-info-password';
 import * as bcrypt from 'bcrypt';
 import { InMemoryJwtService } from '../../../../test/repositories/in-memory-jwt-service';
 import { UserNotFound } from '../errors/user-not-found';
@@ -18,12 +17,12 @@ describe('login user UseCase', () => {
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash('teste!A1', salt);
     const userCrypto = makeUser({
-      password: new UserInfoPassword(hashPassword),
+      password: hashPassword,
     });
     await userMemoryRepository.create(userCrypto);
 
     const { access_token } = await loginUserRepository.execute({
-      email: userMemoryRepository.userMemory[0].email.value,
+      email: userMemoryRepository.userMemory[0].email,
       password: 'teste!A1',
     });
 
@@ -59,14 +58,14 @@ describe('login user UseCase', () => {
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash('teste!A1', salt);
     const userCrypto = makeUser({
-      password: new UserInfoPassword(hashPassword),
+      password: hashPassword,
     });
     await userMemoryRepository.create(userCrypto);
 
     expect(
       async () =>
         await loginUserRepository.execute({
-          email: userMemoryRepository.userMemory[0].email.value,
+          email: userMemoryRepository.userMemory[0].email,
           password: 'passwordWrong!123',
         }),
     ).rejects.toThrow(UserNotFound);

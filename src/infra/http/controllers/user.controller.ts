@@ -60,18 +60,22 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   @Post('github')
   async LoginGithub(@Body() body: ThirdPartyLoginDTO) {
-    const { access_token } = await this.loginGithub.execute(body);
+    const { access_token, refresh_token } = await this.loginGithub.execute(
+      body,
+    );
 
-    return { access_token };
+    return { access_token, refresh_token };
   }
 
   @SkipAuth()
   @HttpCode(HttpStatus.OK)
   @Post('linkedin')
   async LoginLinkedin(@Body() body: ThirdPartyLoginDTO) {
-    const { access_token } = await this.loginLinkedin.execute(body);
+    const { access_token, refresh_token } = await this.loginLinkedin.execute(
+      body,
+    );
 
-    return { access_token };
+    return { access_token, refresh_token };
   }
 
   @HttpCode(HttpStatus.OK)

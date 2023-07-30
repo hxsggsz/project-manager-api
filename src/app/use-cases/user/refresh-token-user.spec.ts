@@ -1,4 +1,3 @@
-import { UserInfoEmail } from '../../../app/entities/user/user-info-email';
 import { makeUser } from '../../../../test/factories/user-factory';
 import { InMemoryJwtService } from '../../../../test/repositories/in-memory-jwt-service';
 import { InMemoryUserRepository } from '../../../../test/repositories/in-memory-user-repository';
@@ -51,7 +50,7 @@ describe('refresh token user UseCase', () => {
       inMemoryJwtService,
     );
 
-    const user = makeUser({ email: new UserInfoEmail('email@gmail.com') });
+    const user = makeUser({ email: 'email@gmail.com' });
     await userMemoryRepository.create(user);
 
     expect(async () =>

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../../repositories/user-repository';
 import { UserNotFound } from '../errors/user-not-found';
-import { UserInfoName } from '../../entities/user/user-info-name';
-import { UserInfoUsername } from '../../entities/user/user-info-username';
-import { UserInfoProfilePhoto } from '../../entities/user/user-info-profile-photo';
+import {} from '../../entities/user/user-info-name';
+import {} from '../../entities/user/user-info-username';
+import {} from '../../entities/user/user-info-profile-photo';
 
 interface UpdateUserRequest {
   id: string;
@@ -22,11 +22,7 @@ export class UpdateUser {
 
     if (!user) throw new UserNotFound();
 
-    user.updateUser(
-      new UserInfoUsername(username),
-      new UserInfoName(name),
-      new UserInfoProfilePhoto(profilePhoto),
-    );
+    user.updateUser(username, name, profilePhoto);
 
     await this.userRepo.update(user);
   }

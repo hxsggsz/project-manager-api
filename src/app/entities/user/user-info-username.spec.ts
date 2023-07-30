@@ -13,6 +13,6 @@ describe('UserInfo Entity', () => {
   });
 
   it('should not be able to create a username with length bigger than 8', () => {
-    expect(() => new UserInfoUsername('a'.repeat(16))).toThrow();
+    expect(() => new UserInfoUsername('a'.repeat(32))).toThrow();
   });
 });

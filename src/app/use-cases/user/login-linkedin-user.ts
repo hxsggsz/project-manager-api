@@ -2,11 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { UserRepository } from '../../repositories/user-repository';
 import { User } from '../../entities/user/user';
-import { UserInfoName } from '../../entities/user/user-info-name';
-import { UserInfoProfilePhoto } from '../../entities/user/user-info-profile-photo';
-import { UserInfoUsername } from '../../entities/user/user-info-username';
 import { JwtService } from '@nestjs/jwt';
-import { UserInfoEmail } from '../../entities/user/user-info-email';
 
 interface LoginLinkedinRequest {
   code: string;
@@ -68,19 +64,21 @@ export class LoginLinkedinUser {
 
     const newUser = new User({
       linkedinId: userInfo.sub,
-      name: new UserInfoName(userInfo.name),
-      email: new UserInfoEmail(userInfo.email),
-      profilePhoto: new UserInfoProfilePhoto(userInfo.picture),
-      username: new UserInfoUsername(`Linkedin_${userInfo.sub}`),
+      name: userInfo.name,
+      email: userInfo.email,
+      profilePhoto: userInfo.picture,
+      username: `Linkedin_${userInfo.name}`,
     });
 
-    if (!userExists) await this.userRepo.create(newUser);
+    if (!userExists) {
+      await this.userRepo.create(newUser);
+    }
 
     const token = {
       sub: newUser.id,
-      name: newUser.name.value,
-      username: newUser.username.value,
-      profile_photo: newUser.profilePhoto.value,
+      name: newUser.name,
+      username: newUser.username,
+      profile_photo: newUser.profilePhoto,
     };
 
     return {

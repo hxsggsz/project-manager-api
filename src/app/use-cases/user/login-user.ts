@@ -28,18 +28,15 @@ export class LoginUser {
 
     if (!userToLogin) throw new UserNotFound();
 
-    const isSamePassword = await bcrypt.compare(
-      password,
-      userToLogin.password.value,
-    );
+    const isSamePassword = await bcrypt.compare(password, userToLogin.password);
 
     if (!isSamePassword) throw new UserNotFound();
 
     const token = {
       sub: userToLogin.id,
-      name: userToLogin.name.value,
-      username: userToLogin.username.value,
-      profile_photo: userToLogin.profilePhoto.value,
+      name: userToLogin.name,
+      username: userToLogin.username,
+      profile_photo: userToLogin.profilePhoto,
     };
 
     return {
