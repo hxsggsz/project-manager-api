@@ -44,7 +44,6 @@ export class ProjectController {
     @Body() body: CreateAndUpdateProjectDTO,
   ) {
     const { name, isPublic } = body;
-
     await this.createProject.execute({ ownerId, name, isPublic });
   }
 

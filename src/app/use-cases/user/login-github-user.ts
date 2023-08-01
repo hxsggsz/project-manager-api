@@ -54,9 +54,7 @@ export class LoginGithubUser {
     );
 
     const userInfo = userResponse.data;
-    const userExists = await this.userRepo.findUserByGithubId(
-      userInfo.id.toString(),
-    );
+    let user = await this.userRepo.findUserByGithubId(userInfo.id.toString());
 
     const newUser = new User({
       name: userInfo.name,
@@ -64,15 +62,16 @@ export class LoginGithubUser {
       username: userInfo.login,
       githubId: userInfo.id.toString(),
     });
-    if (!userExists) {
-      await this.userRepo.create(newUser);
+
+    if (!user) {
+      user = await this.userRepo.create(newUser);
     }
 
     const token = {
-      sub: newUser.id,
-      name: newUser.name,
-      username: newUser.username,
-      profile_photo: newUser.profilePhoto,
+      sub: user.id,
+      name: user.name,
+      username: user.username,
+      profile_photo: user.profilePhoto,
     };
 
     return {

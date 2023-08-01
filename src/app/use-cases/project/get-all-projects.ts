@@ -16,8 +16,8 @@ export class GetAllProjects {
 
   async execute(req: GetAllProjectsRequest): Promise<GetAllProjectsResponse> {
     const { ownerId } = req;
-    const allProjects = await this.projectRepo.findAll(ownerId);
+    const projects = await this.projectRepo.findAll(ownerId);
 
-    return { projects: allProjects };
+    return { projects };
   }
 }

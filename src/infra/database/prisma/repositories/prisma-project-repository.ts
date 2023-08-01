@@ -13,7 +13,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       data: {
         name: project.name,
         isPublic: project.isPublic,
-        owner: { connect: { id: project.ownerId } },
+        user: { connect: { id: project.ownerId } },
       },
     });
   }
@@ -33,7 +33,7 @@ export class PrismaProjectRepository implements ProjectRepository {
   async findAll(ownerId: string): Promise<Project[]> {
     const allProjects = await this.prisma.projects.findMany({
       where: {
-        ownerId,
+        userId: ownerId,
       },
     });
     return allProjects.map(PrismaProjectMappers.toDomain);

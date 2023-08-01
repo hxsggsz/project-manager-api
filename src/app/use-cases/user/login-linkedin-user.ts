@@ -60,7 +60,7 @@ export class LoginLinkedinUser {
 
     const userInfo = userResponse.data;
 
-    const userExists = await this.userRepo.findUserByLinkedinId(userInfo.sub);
+    let user = await this.userRepo.findUserByLinkedinId(userInfo.sub);
 
     const newUser = new User({
       linkedinId: userInfo.sub,
@@ -70,15 +70,15 @@ export class LoginLinkedinUser {
       username: `Linkedin_${userInfo.name}`,
     });
 
-    if (!userExists) {
-      await this.userRepo.create(newUser);
+    if (!user) {
+      user = await this.userRepo.create(newUser);
     }
 
     const token = {
-      sub: newUser.id,
-      name: newUser.name,
-      username: newUser.username,
-      profile_photo: newUser.profilePhoto,
+      sub: user.id,
+      name: user.name,
+      username: user.username,
+      profile_photo: user.profilePhoto,
     };
 
     return {

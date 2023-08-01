@@ -7,7 +7,7 @@ export class PrismaProjectMappers {
       {
         name: raw.name,
         isPublic: raw.isPublic,
-        ownerId: raw.ownerId,
+        ownerId: raw.userId,
       },
       raw.id,
     );
