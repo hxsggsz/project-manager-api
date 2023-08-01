@@ -7,6 +7,7 @@ describe('participant entitiy', () => {
       profilePhoto: 'test',
       username: 'test',
       projectId: 'test',
+      role: 'admin',
     });
 
     expect(participant).toBeTruthy();

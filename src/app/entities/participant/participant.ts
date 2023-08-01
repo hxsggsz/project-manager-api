@@ -1,12 +1,15 @@
 import { Replace } from 'src/helpers/replace';
 import { randomUUID } from 'node:crypto';
 
+type RoleTypes = 'user' | 'admin' | 'owner';
+
 export interface ParticipantProps {
   name: string;
   username: string;
   profilePhoto: string;
   makePartAt: Date;
   projectId: string;
+  role: RoleTypes;
 }
 
 export class Participant {
@@ -69,5 +72,13 @@ export class Participant {
 
   public set projectId(projectId: string) {
     this.props.projectId = projectId;
+  }
+
+  public get role(): string {
+    return this.props.role;
+  }
+
+  public set role(role: RoleTypes) {
+    this.props.role = role;
   }
 }

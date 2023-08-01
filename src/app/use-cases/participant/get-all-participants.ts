@@ -18,7 +18,6 @@ export class GetAllParticipants {
     req: GetAllParticipantsRequest,
   ): Promise<GetAllParticipantsResponse> {
     const { projectsId } = req;
-    console.log(projectsId);
     const allParticipants = await this.partRepo.getAllParticipants(projectsId);
 
     return { allParticipants };

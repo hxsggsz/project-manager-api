@@ -67,7 +67,7 @@ export class LoginLinkedinUser {
       name: userInfo.name,
       email: userInfo.email,
       profilePhoto: userInfo.picture,
-      username: `Linkedin_${userInfo.name}`,
+      username: `Linkedin_${userInfo.sub}`,
     });
 
     if (!user) {
