@@ -1,3 +1,4 @@
+import { makeProject } from '../../../../test/factories/project-factory';
 import { makeParticipant } from '../../../../test/factories/participant-factory';
 import { InMemoryParticipantRepository } from '../../../../test/repositories/in-memory-participant-repository';
 import { RemoveParticipant } from './remove-participant';
@@ -8,14 +9,15 @@ describe('remove participant use case ', () => {
     const inMemoryRemovePart = new RemoveParticipant(inMemoryPartRepo);
 
     const participant = makeParticipant();
+    const project = makeProject();
     await inMemoryPartRepo.addParticipant(participant);
     expect(inMemoryPartRepo.participant.length).toEqual(1);
     expect(inMemoryPartRepo.participant[0]).toEqual(participant);
 
     await inMemoryRemovePart.execute({
       participantId: participant.id,
-      ownerId: inMemoryPartRepo.project[0].ownerId,
-      projectId: inMemoryPartRepo.project[0].id,
+      userId: project.userId,
+      projectId: participant.projectId,
     });
     expect(inMemoryPartRepo.participant.length).toEqual(0);
     expect(inMemoryPartRepo.participant[0]).toBeUndefined();
@@ -26,6 +28,7 @@ describe('remove participant use case ', () => {
     const inMemoryRemovePart = new RemoveParticipant(inMemoryPartRepo);
 
     const participant = makeParticipant();
+    const project = makeProject();
     await inMemoryPartRepo.addParticipant(participant);
     expect(inMemoryPartRepo.participant.length).toEqual(1);
     expect(inMemoryPartRepo.participant[0]).toEqual(participant);
@@ -34,8 +37,8 @@ describe('remove participant use case ', () => {
       async () =>
         await inMemoryRemovePart.execute({
           participantId: participant.id,
-          ownerId: 'wrongId',
-          projectId: inMemoryPartRepo.project[0].id,
+          userId: 'wrongId',
+          projectId: project.id,
         }),
     ).rejects.toThrow();
   });

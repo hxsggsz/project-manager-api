@@ -4,7 +4,7 @@ import { ProjectRepository } from '../../src/app/repositories/project-repository
 export class InMemoryProjectRepository implements ProjectRepository {
   public project: Project[] = [];
 
-  async create(project: Project): Promise<void> {
+  async createProjectWithParticipant(project: Project): Promise<void> {
     this.project.push(project);
   }
 
@@ -18,8 +18,8 @@ export class InMemoryProjectRepository implements ProjectRepository {
     }
   }
 
-  async findAll(ownerId: string): Promise<Project[]> {
-    return this.project.filter((proj) => proj.ownerId === ownerId);
+  async findAll(userId: string): Promise<Project[]> {
+    return this.project.filter((proj) => proj.userId === userId);
   }
 
   async findById(projectId: string): Promise<Project | null> {

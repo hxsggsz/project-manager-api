@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, Max, Min } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, Max, Min } from 'class-validator';
 
 export class CreateAndUpdateProjectDTO {
   @Min(5)
@@ -9,4 +9,16 @@ export class CreateAndUpdateProjectDTO {
   @IsBoolean()
   @IsNotEmpty()
   isPublic: boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  participantName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  participantUsername: string;
+
+  @IsString()
+  @IsNotEmpty()
+  participantPhoto: string;
 }

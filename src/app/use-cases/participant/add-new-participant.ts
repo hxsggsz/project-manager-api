@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Participant } from '../../entities/participant/participant';
+import { Participant, RoleTypes } from '../../entities/participant/participant';
 import { ParticipantRepository } from '../../repositories/participant-repository';
 import { UserNotAuthorized } from '../errors/user-not-authorized';
 
@@ -8,7 +8,8 @@ interface AddNewParticipantRequest {
   username: string;
   profilePhoto: string;
   projectId: string;
-  ownerId: string;
+  userId: string;
+  role: RoleTypes;
 }
 
 interface AddNewParticipantResponse {
@@ -22,16 +23,18 @@ export class AddNewParticipant {
   async execute(
     req: AddNewParticipantRequest,
   ): Promise<AddNewParticipantResponse> {
-    const { name, profilePhoto, projectId, username, ownerId } = req;
+    const { name, profilePhoto, projectId, username, userId, role } = req;
 
-    const isOwner = await this.partRepo.getProjectOwner(projectId);
-    if (isOwner.ownerId !== ownerId) throw new UserNotAuthorized();
+    const owner = await this.partRepo.getProjectOwner(projectId, userId);
+
+    if (!owner || owner.role === 'user') throw new UserNotAuthorized();
 
     const newParticipant = new Participant({
       name,
       username,
       profilePhoto,
       projectId,
+      role,
     });
 
     await this.partRepo.addParticipant(newParticipant);

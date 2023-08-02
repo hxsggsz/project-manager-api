@@ -8,7 +8,7 @@ describe('delete project use case', () => {
     const inMemoryDeleteProj = new DeleteProject(inMemoryProjRepo);
 
     const proj = makeProject();
-    await inMemoryProjRepo.create(proj);
+    await inMemoryProjRepo.createProjectWithParticipant(proj);
 
     expect(inMemoryProjRepo.project.length).toEqual(1);
 

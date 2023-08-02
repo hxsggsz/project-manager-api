@@ -1,7 +1,7 @@
 import { Replace } from 'src/helpers/replace';
 import { randomUUID } from 'node:crypto';
 
-type RoleTypes = 'user' | 'admin' | 'owner';
+export type RoleTypes = 'user' | 'admin' | 'owner';
 
 export interface ParticipantProps {
   name: string;

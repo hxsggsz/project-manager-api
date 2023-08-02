@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Project } from '../../../app/entities/project/project';
 import { ProjectRepository } from '../../../app/repositories/project-repository';
+import { Participant } from '../../../app/entities/participant/participant';
 
 interface CreateProjectRequest {
   name: string;
   isPublic: boolean;
-  ownerId: string;
+  userId: string;
+  participantName: string;
+  participantUsername: string;
+  participantPhoto: string;
 }
 
 interface CreateProjectResponse {
@@ -17,15 +21,24 @@ export class CreateProject {
   constructor(private projectRepo: ProjectRepository) {}
 
   async execute(req: CreateProjectRequest): Promise<CreateProjectResponse> {
-    const { name, isPublic, ownerId } = req;
-
     const project = new Project({
-      name,
-      isPublic,
-      ownerId,
+      name: req.name,
+      isPublic: req.isPublic,
+      userId: req.userId,
     });
 
-    await this.projectRepo.create(project);
+    const newParticipant = new Participant({
+      name: req.participantName,
+      username: req.participantUsername,
+      profilePhoto: req.participantPhoto,
+      projectId: project.id,
+      role: 'owner',
+    });
+
+    await this.projectRepo.createProjectWithParticipant(
+      project,
+      newParticipant,
+    );
 
     return { project };
   }

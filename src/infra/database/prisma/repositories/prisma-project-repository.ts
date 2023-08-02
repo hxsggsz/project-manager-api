@@ -3,17 +3,34 @@ import { Project } from '../../../../app/entities/project/project';
 import { ProjectRepository } from '../../../../app/repositories/project-repository';
 import { PrismaProjectMappers } from '../mappers/prisma-project-mappers';
 import { PrismaService } from '../prisma.service';
+import { Participant } from 'src/app/entities/participant/participant';
 
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(project: Project): Promise<void> {
+  async createProjectWithParticipant(
+    project: Project,
+    participant: Participant,
+  ): Promise<void> {
     await this.prisma.projects.create({
       data: {
         name: project.name,
         isPublic: project.isPublic,
-        user: { connect: { id: project.ownerId } },
+        userId: project.userId,
+        participants: {
+          connectOrCreate: {
+            where: {
+              id: participant.id,
+            },
+            create: {
+              name: participant.name,
+              username: participant.username,
+              profilePhoto: participant.profilePhoto,
+              role: participant.role,
+            },
+          },
+        },
       },
     });
   }
@@ -30,17 +47,15 @@ export class PrismaProjectRepository implements ProjectRepository {
     });
   }
 
-  async findAll(ownerId: string): Promise<Project[]> {
+  async findAll(userId: string): Promise<Project[]> {
     const allProjects = await this.prisma.projects.findMany({
-      where: {
-        userId: ownerId,
-      },
+      where: { userId },
     });
     return allProjects.map(PrismaProjectMappers.toDomain);
   }
 
   async findById(projectId: string): Promise<Project | null> {
-    const project = await this.prisma.projects.findUnique({
+    const project = await this.prisma.projects.findFirst({
       where: { id: projectId },
     });
     if (!project) null;

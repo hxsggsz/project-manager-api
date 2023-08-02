@@ -24,9 +24,9 @@ export class ProjectController {
     private deleteProject: DeleteProject,
   ) {}
 
-  @Get('/:ownerId')
-  async GetAllProjects(@Param('ownerId') ownerId: string) {
-    const { projects } = await this.getAllProjects.execute({ ownerId });
+  @Get('/:userId')
+  async GetAllProjects(@Param('userId') userId: string) {
+    const { projects } = await this.getAllProjects.execute({ userId });
 
     return { projects };
   }
@@ -38,13 +38,26 @@ export class ProjectController {
     return { project };
   }
 
-  @Post('/:ownerId')
+  @Post('/:userId')
   async createNewProject(
-    @Param('ownerId') ownerId: string,
+    @Param('userId') userId: string,
     @Body() body: CreateAndUpdateProjectDTO,
   ) {
-    const { name, isPublic } = body;
-    await this.createProject.execute({ ownerId, name, isPublic });
+    const {
+      name,
+      isPublic,
+      participantName,
+      participantPhoto,
+      participantUsername,
+    } = body;
+    await this.createProject.execute({
+      userId,
+      name,
+      isPublic,
+      participantName,
+      participantPhoto,
+      participantUsername,
+    });
   }
 
   @Put('/:projectId')

@@ -8,7 +8,7 @@ describe('update project use case', () => {
     const updateProject = new UpdateProject(inMemoryProject);
 
     const projToUpdate = makeProject();
-    await inMemoryProject.create(projToUpdate);
+    await inMemoryProject.createProjectWithParticipant(projToUpdate);
 
     expect(inMemoryProject.project[0]).toEqual(projToUpdate);
 
@@ -40,7 +40,7 @@ describe('update project use case', () => {
     const updateProject = new UpdateProject(inMemoryProject);
 
     const projToUpdate = makeProject();
-    await inMemoryProject.create(projToUpdate);
+    await inMemoryProject.createProjectWithParticipant(projToUpdate);
 
     expect(inMemoryProject.project[0]).toEqual(projToUpdate);
 

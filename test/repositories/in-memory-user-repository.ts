@@ -4,8 +4,9 @@ import { UserRepository } from '../../src/app/repositories/user-repository';
 export class InMemoryUserRepository implements UserRepository {
   public userMemory: User[] = [];
 
-  async create(user: User): Promise<void> {
+  async create(user: User): Promise<User> {
     this.userMemory.push(user);
+    return this.userMemory[0];
   }
 
   async update(user: User): Promise<void> {

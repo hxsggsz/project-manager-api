@@ -6,11 +6,17 @@ describe('get all projects use case', () => {
     const inMemoryProject = new InMemoryProjectRepository();
     const inMemoryAllProjects = new GetAllProjects(inMemoryProject);
 
-    await inMemoryProject.create(makeProject({ ownerId: 'id1' }));
-    await inMemoryProject.create(makeProject({ ownerId: 'id1' }));
-    await inMemoryProject.create(makeProject({ ownerId: 'id2' }));
+    await inMemoryProject.createProjectWithParticipant(
+      makeProject({ userId: 'id1' }),
+    );
+    await inMemoryProject.createProjectWithParticipant(
+      makeProject({ userId: 'id1' }),
+    );
+    await inMemoryProject.createProjectWithParticipant(
+      makeProject({ userId: 'id2' }),
+    );
 
-    const { projects } = await inMemoryAllProjects.execute({ ownerId: 'id1' });
+    const { projects } = await inMemoryAllProjects.execute({ userId: 'id1' });
 
     expect(projects.length).toEqual(2);
   });
@@ -19,10 +25,12 @@ describe('get all projects use case', () => {
     const inMemoryProject = new InMemoryProjectRepository();
     const inMemoryAllProjects = new GetAllProjects(inMemoryProject);
 
-    await inMemoryProject.create(makeProject({ ownerId: 'id1' }));
+    await inMemoryProject.createProjectWithParticipant(
+      makeProject({ userId: 'id1' }),
+    );
 
     const { projects } = await inMemoryAllProjects.execute({
-      ownerId: 'another-id',
+      userId: 'another-id',
     });
 
     expect(projects).toEqual([]);

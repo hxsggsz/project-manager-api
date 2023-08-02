@@ -4,9 +4,9 @@ import { randomUUID } from 'node:crypto';
 
 export interface ProjectProps {
   name: string;
-  createdAt: Date;
-  ownerId: string;
   isPublic: boolean;
+  userId: string;
+  createdAt: Date;
 }
 export class Project {
   private _id: string;
@@ -33,20 +33,20 @@ export class Project {
     return this.props.name;
   }
 
-  public set ownerId(ownerId: string) {
-    this.props.ownerId = ownerId;
-  }
-
-  public get ownerId(): string {
-    return this.props.ownerId;
-  }
-
   public set isPublic(isPublic: boolean) {
     this.props.isPublic = isPublic;
   }
 
   public get isPublic(): boolean {
     return this.props.isPublic;
+  }
+
+  public get userId(): string {
+    return this.props.userId;
+  }
+
+  public set userId(userId: string) {
+    this.props.userId = userId;
   }
 
   public set createdAt(createdAt: Date) {

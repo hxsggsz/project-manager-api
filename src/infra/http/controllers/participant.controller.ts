@@ -29,15 +29,16 @@ export class ParticipantController {
     @Query() params: QueryNewParticipantDTO,
     @Body() body: AddNewParticipantDTO,
   ) {
-    const { ownerId, projectId } = params;
-    const { name, profilePhoto, username } = body;
+    const { userId, projectId } = params;
+    const { name, profilePhoto, username, role } = body;
 
     await this.addNewPart.execute({
       name,
-      ownerId,
+      userId,
       profilePhoto,
       projectId,
       username,
+      role,
     });
   }
 
@@ -50,8 +51,8 @@ export class ParticipantController {
 
   @Delete()
   async RemoveParticipant(@Query() params: RemoveParticipantDTO) {
-    const { ownerId, participantId, projectId } = params;
+    const { userId, participantId, projectId } = params;
 
-    await this.removePart.execute({ ownerId, participantId, projectId });
+    await this.removePart.execute({ userId, participantId, projectId });
   }
 }

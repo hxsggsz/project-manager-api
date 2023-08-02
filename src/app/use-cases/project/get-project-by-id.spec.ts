@@ -8,7 +8,7 @@ describe('get project by id use case', () => {
     const getProjById = new GetProjectById(inMemoryProject);
 
     const proj = makeProject();
-    await inMemoryProject.create(proj);
+    await inMemoryProject.createProjectWithParticipant(proj);
 
     const { project } = await getProjById.execute({ projectId: proj.id });
 

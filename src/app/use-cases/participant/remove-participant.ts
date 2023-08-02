@@ -6,7 +6,7 @@ import { UserNotAuthorized } from '../errors/user-not-authorized';
 interface RemoveParticipantRequest {
   participantId: string;
   projectId: string;
-  ownerId: string;
+  userId: string;
 }
 
 @Injectable()
@@ -14,11 +14,10 @@ export class RemoveParticipant {
   constructor(private partRepo: ParticipantRepository) {}
 
   async execute(req: RemoveParticipantRequest): Promise<void> {
-    const { participantId, projectId, ownerId } = req;
+    const { participantId, projectId, userId } = req;
 
-    const isTheOwner = await this.partRepo.getProjectOwner(projectId);
-
-    if (isTheOwner.ownerId !== ownerId) throw new UserNotAuthorized();
+    const owner = await this.partRepo.getProjectOwner(projectId, userId);
+    if (!owner || owner.role === 'user') throw new UserNotAuthorized();
 
     const participantExists = await this.partRepo.findParticipantById(
       participantId,

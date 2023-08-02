@@ -5,7 +5,7 @@ export function makeProject(override: Override<ProjectProps> = {}): Project {
   return new Project({
     name: 'name test',
     isPublic: true,
-    ownerId: 'owneruuid',
+    userId: 'user123',
     ...override,
   });
 }

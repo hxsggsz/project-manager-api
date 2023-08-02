@@ -9,5 +9,5 @@ export class RemoveParticipantDTO {
   projectId: string;
   @IsString()
   @IsUUID()
-  ownerId: string;
+  userId: string;
 }

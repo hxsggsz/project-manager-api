@@ -1,10 +1,11 @@
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { RoleTypes } from 'src/app/entities/participant/participant';
 
 export class QueryNewParticipantDTO {
   @IsString()
   @IsUUID()
   @IsNotEmpty()
-  ownerId: string;
+  userId: string;
 
   @IsString()
   @IsUUID()
@@ -22,4 +23,8 @@ export class AddNewParticipantDTO {
   @IsString()
   @IsNotEmpty()
   profilePhoto: string;
+
+  @IsString()
+  @IsNotEmpty()
+  role: RoleTypes;
 }

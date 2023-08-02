@@ -11,6 +11,7 @@ export function makeParticipant(
     name: 'name test',
     username: 'username test',
     profilePhoto: 'https://profile.com',
+    role: 'admin',
     projectId: 'project123',
     ...override,
   });

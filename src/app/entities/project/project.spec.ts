@@ -7,14 +7,14 @@ describe('projects entity', () => {
     const project = new Project({
       name: 'testName',
       isPublic: true,
-      ownerId: 'idTest',
+      userId: 'idTest',
       createdAt: date as unknown as Date,
     });
 
     expect(project).toBeTruthy();
     expect(project.name).toEqual('testName');
     expect(project.isPublic).toBeTruthy();
-    expect(project.ownerId).toEqual('idTest');
+    expect(project.userId).toEqual('idTest');
     expect(project.createdAt).toEqual(date);
   });
 
@@ -24,14 +24,14 @@ describe('projects entity', () => {
     const project = new Project({
       name: 'testName',
       isPublic: true,
-      ownerId: 'idTest',
+      userId: 'idTest',
       createdAt: date as unknown as Date,
     });
 
     expect(project).toBeTruthy();
     expect(project.name).toEqual('testName');
     expect(project.isPublic).toBeTruthy();
-    expect(project.ownerId).toEqual('idTest');
+    expect(project.userId).toEqual('idTest');
     expect(project.createdAt).toEqual(date);
 
     project.updateProject('new name', false);

@@ -9,7 +9,10 @@ describe('create project use case', () => {
     const { project } = await createProject.execute({
       name: 'testName',
       isPublic: true,
-      ownerId: 'ownerId',
+      userId: 'userId',
+      participantName: 'test',
+      participantPhoto: 'test.com',
+      participantUsername: 'test user',
     });
 
     expect(inMemoryProject.project[0]).toEqual(project);
