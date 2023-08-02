@@ -12,7 +12,7 @@ import {
   QueryNewParticipantDTO,
 } from '../dtos/participant/add-new-participant.dto';
 import { AddNewParticipant } from 'src/app/use-cases/participant/add-new-participant';
-import { GetAllParticipants } from 'src/app/use-cases/participant/get-all-Participants';
+import { GetAllParticipants } from '../../../app/use-cases/participant/get-all-Participants';
 import { RemoveParticipant } from 'src/app/use-cases/participant/remove-participant';
 import { RemoveParticipantDTO } from '../dtos/participant/remove-participant-dto';
 
