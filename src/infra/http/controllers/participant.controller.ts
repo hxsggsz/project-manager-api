@@ -7,11 +7,11 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { AddNewParticipant } from 'src/app/use-cases/participant/add-new-participant';
 import {
   AddNewParticipantDTO,
   QueryNewParticipantDTO,
 } from '../dtos/participant/add-new-participant.dto';
+import { AddNewParticipant } from 'src/app/use-cases/participant/add-new-participant';
 import { GetAllParticipants } from 'src/app/use-cases/participant/get-all-Participants';
 import { RemoveParticipant } from 'src/app/use-cases/participant/remove-participant';
 import { RemoveParticipantDTO } from '../dtos/participant/remove-participant-dto';
