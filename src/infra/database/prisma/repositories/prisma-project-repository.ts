@@ -50,6 +50,9 @@ export class PrismaProjectRepository implements ProjectRepository {
   async findAll(userId: string): Promise<Project[]> {
     const allProjects = await this.prisma.projects.findMany({
       where: { userId },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
     return allProjects.map(PrismaProjectMappers.toDomain);
   }
