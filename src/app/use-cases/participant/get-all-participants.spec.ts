@@ -1,5 +1,5 @@
 import { makeParticipant } from '../../../../test/factories/participant-factory';
-import { GetAllParticipants } from './get-all-Participants';
+import { GetAllParticipants } from './get-all-Participant';
 import { InMemoryParticipantRepository } from '../../../../test/repositories/in-memory-participant-repository';
 
 describe('get all participants use case', () => {
