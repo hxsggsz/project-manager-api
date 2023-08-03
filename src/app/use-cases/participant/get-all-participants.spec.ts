@@ -1,6 +1,6 @@
 import { makeParticipant } from '../../../../test/factories/participant-factory';
-import { InMemoryParticipantRepository } from '../../../../test/repositories/in-memory-participant-repository';
 import { GetAllParticipants } from './get-all-Participants';
+import { InMemoryParticipantRepository } from '../../../../test/repositories/in-memory-participant-repository';
 
 describe('get all participants use case', () => {
   it('should get an array with one participant inside', async () => {
