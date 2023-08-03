@@ -14,8 +14,6 @@ jobs:
           node-version: 18.
       - name: run install, format, build and test
         run: |
-          npm i
-          npm run format
-          npm i
+          npm install
           npm run build
           npm run test
