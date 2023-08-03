@@ -16,7 +16,7 @@ import { DeleteProject } from 'src/app/use-cases/project/delete-project';
 import { ParticipantController } from './controllers/participant.controller';
 import { AddNewParticipant } from 'src/app/use-cases/participant/add-new-participant';
 import { RemoveParticipant } from 'src/app/use-cases/participant/remove-participant';
-import { GetAllParticipants } from '../../app/use-cases/participant/get-all-Participant';
+import { GetAllParticipants } from '../../app/use-cases/participant/get-all-participants';
 
 @Module({
   imports: [DatabaseModule],
