@@ -16,6 +16,6 @@ jobs:
         run: |
           npm i
           npm run format
+          npm i
           npm run build
           npm run test
-          npm i
