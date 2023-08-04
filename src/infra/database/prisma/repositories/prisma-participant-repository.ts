@@ -64,7 +64,7 @@ export class PrismaParticipantRepository implements ParticipantRepository {
       where: { projectsId, projects: { userId: ownerId } },
     });
 
-    if (!getTheOwner) null;
+    if (!getTheOwner) return null;
 
     return PrismaParticipantMappers.toDomain(getTheOwner);
   }

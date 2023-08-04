@@ -58,10 +58,10 @@ export class PrismaProjectRepository implements ProjectRepository {
   }
 
   async findById(projectId: string): Promise<Project | null> {
-    const project = await this.prisma.projects.findFirst({
+    const project = await this.prisma.projects.findUnique({
       where: { id: projectId },
     });
-    if (!project) null;
+    if (!project) return null;
 
     return PrismaProjectMappers.toDomain(project);
   }
