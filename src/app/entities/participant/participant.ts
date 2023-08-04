@@ -4,9 +4,7 @@ import { randomUUID } from 'node:crypto';
 export type RoleTypes = 'user' | 'admin' | 'owner';
 
 export interface ParticipantProps {
-  name: string;
-  username: string;
-  profilePhoto: string;
+  userId: string;
   makePartAt: Date;
   projectId: string;
   role: RoleTypes;
@@ -34,28 +32,12 @@ export class Participant {
   public set id(id: string) {
     this._id = id;
   }
-  public get name(): string {
-    return this.props.name;
+  public get userId(): string {
+    return this.props.userId;
   }
 
-  public set name(name: string) {
-    this.props.name = name;
-  }
-
-  public get username(): string {
-    return this.props.username;
-  }
-
-  public set username(username: string) {
-    this.props.username = username;
-  }
-
-  public get profilePhoto(): string {
-    return this.props.profilePhoto;
-  }
-
-  public set profilePhoto(profilePhoto: string) {
-    this.props.profilePhoto = profilePhoto;
+  public set userId(userId: string) {
+    this.props.userId = userId;
   }
 
   public get makePartAt(): Date {

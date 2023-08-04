@@ -16,15 +16,5 @@ export class QueryNewParticipantDTO {
 export class AddNewParticipantDTO {
   @IsString()
   @IsNotEmpty()
-  name: string;
-  @IsString()
-  @IsNotEmpty()
-  username: string;
-  @IsString()
-  @IsNotEmpty()
-  profilePhoto: string;
-
-  @IsString()
-  @IsNotEmpty()
   role: RoleTypes;
 }

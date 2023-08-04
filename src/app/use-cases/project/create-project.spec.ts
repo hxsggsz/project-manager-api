@@ -10,9 +10,6 @@ describe('create project use case', () => {
       name: 'testName',
       isPublic: true,
       userId: 'userId',
-      participantName: 'test',
-      participantPhoto: 'test.com',
-      participantUsername: 'test user',
     });
 
     expect(inMemoryProject.project[0]).toEqual(project);

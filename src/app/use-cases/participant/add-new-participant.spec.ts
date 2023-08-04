@@ -12,9 +12,6 @@ describe('add new participant use case', () => {
     await inMemoryPartRepo.addParticipant(participant);
 
     const { newParticipant } = await inMemoryAddParticipant.execute({
-      name: participant.name,
-      username: participant.username,
-      profilePhoto: participant.profilePhoto,
       role: participant.role as RoleTypes,
       projectId: participant.projectId,
       userId: inMemoryPartRepo.project[0].userId,

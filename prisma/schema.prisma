@@ -32,12 +32,10 @@ model projects {
 }
 
 model participants {
-  id           String    @id @unique @default(uuid())
-  name         String
-  username     String
-  profilePhoto String
-  role         String    @default("user")
-  makePartAt   DateTime  @default(now())
-  projects     projects? @relation(fields: [projectsId], references: [id])
-  projectsId   String?
+  id         String    @id @unique @default(uuid())
+  userId     String
+  role       String    @default("user")
+  makePartAt DateTime  @default(now())
+  projects   projects? @relation(fields: [projectsId], references: [id])
+  projectsId String?
 }

@@ -30,14 +30,11 @@ export class ParticipantController {
     @Body() body: AddNewParticipantDTO,
   ) {
     const { userId, projectId } = params;
-    const { name, profilePhoto, username, role } = body;
+    const { role } = body;
 
     await this.addNewPart.execute({
-      name,
       userId,
-      profilePhoto,
       projectId,
-      username,
       role,
     });
   }

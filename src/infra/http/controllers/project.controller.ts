@@ -43,20 +43,11 @@ export class ProjectController {
     @Param('userId') userId: string,
     @Body() body: CreateAndUpdateProjectDTO,
   ) {
-    const {
-      name,
-      isPublic,
-      participantName,
-      participantPhoto,
-      participantUsername,
-    } = body;
+    const { name, isPublic } = body;
     await this.createProject.execute({
       userId,
       name,
       isPublic,
-      participantName,
-      participantPhoto,
-      participantUsername,
     });
   }
 

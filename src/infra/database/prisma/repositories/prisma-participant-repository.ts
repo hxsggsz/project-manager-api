@@ -32,9 +32,7 @@ export class PrismaParticipantRepository implements ParticipantRepository {
     console.log(participant);
     await this.prisma.participants.create({
       data: {
-        name: participant.name,
-        username: participant.username,
-        profilePhoto: participant.profilePhoto,
+        userId: participant.userId,
         projects: { connect: { id: participant.projectId } },
       },
     });
@@ -61,7 +59,7 @@ export class PrismaParticipantRepository implements ParticipantRepository {
     ownerId: string,
   ): Promise<Participant | null> {
     const getTheOwner = await this.prisma.participants.findFirst({
-      where: { projectsId, projects: { userId: ownerId } },
+      where: { projectsId, userId: ownerId },
     });
 
     if (!getTheOwner) return null;

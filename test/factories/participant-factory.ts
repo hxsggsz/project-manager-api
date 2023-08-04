@@ -8,9 +8,7 @@ export function makeParticipant(
   override: Override<ParticipantProps> = {},
 ): Participant {
   return new Participant({
-    name: 'name test',
-    username: 'username test',
-    profilePhoto: 'https://profile.com',
+    userId: '1234',
     role: 'admin',
     projectId: 'project123',
     ...override,

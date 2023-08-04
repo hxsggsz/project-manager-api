@@ -24,9 +24,7 @@ export class PrismaProjectRepository implements ProjectRepository {
               id: participant.id,
             },
             create: {
-              name: participant.name,
-              username: participant.username,
-              profilePhoto: participant.profilePhoto,
+              userId: participant.userId,
               role: participant.role,
             },
           },
@@ -53,8 +51,16 @@ export class PrismaProjectRepository implements ProjectRepository {
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        _count: {
+          select: {
+            participants: true,
+          },
+        },
+      },
     });
-    return allProjects.map(PrismaProjectMappers.toDomain);
+
+    return allProjects as unknown as Project[];
   }
 
   async findById(projectId: string): Promise<Project | null> {

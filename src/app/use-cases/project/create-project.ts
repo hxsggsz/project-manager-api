@@ -7,9 +7,6 @@ interface CreateProjectRequest {
   name: string;
   isPublic: boolean;
   userId: string;
-  participantName: string;
-  participantUsername: string;
-  participantPhoto: string;
 }
 
 interface CreateProjectResponse {
@@ -28,9 +25,7 @@ export class CreateProject {
     });
 
     const newParticipant = new Participant({
-      name: req.participantName,
-      username: req.participantUsername,
-      profilePhoto: req.participantPhoto,
+      userId: req.userId,
       projectId: project.id,
       role: 'owner',
     });

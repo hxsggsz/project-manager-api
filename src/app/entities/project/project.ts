@@ -8,6 +8,7 @@ export interface ProjectProps {
   userId: string;
   createdAt: Date;
 }
+
 export class Project {
   private _id: string;
   private props: ProjectProps;
