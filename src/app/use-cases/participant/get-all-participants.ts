@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ParticipantRepository } from '../../repositories/participant-repository';
-import { Participant } from 'src/app/entities/participant/participant';
+import { User } from 'src/app/entities/user/user';
 
 interface GetAllParticipantsRequest {
   projectsId: string;
 }
 
 interface GetAllParticipantsResponse {
-  allParticipants: Participant[];
+  allParticipants: User[];
 }
 
 @Injectable()

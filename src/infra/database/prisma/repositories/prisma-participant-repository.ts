@@ -3,6 +3,7 @@ import { Participant } from 'src/app/entities/participant/participant';
 import { ParticipantRepository } from 'src/app/repositories/participant-repository';
 import { PrismaService } from '../prisma.service';
 import { PrismaParticipantMappers } from '../mappers/prisma-participants-mappers';
+import { User } from 'src/app/entities/user/user';
 
 @Injectable()
 export class PrismaParticipantRepository implements ParticipantRepository {
@@ -20,14 +21,6 @@ export class PrismaParticipantRepository implements ParticipantRepository {
     return PrismaParticipantMappers.toDomain(participant);
   }
 
-  async getAllParticipants(projectsId: string): Promise<Participant[]> {
-    const allParticipants = await this.prisma.participants.findMany({
-      where: { projectsId },
-    });
-
-    return allParticipants.map(PrismaParticipantMappers.toDomain);
-  }
-
   async addParticipant(participant: Participant): Promise<void> {
     console.log(participant);
     await this.prisma.participants.create({
@@ -38,14 +31,22 @@ export class PrismaParticipantRepository implements ParticipantRepository {
     });
   }
 
-  async getAllParticipant(projectsId: string): Promise<Participant[]> {
+  async getAllParticipants(projectsId: string): Promise<User[]> {
     const participants = await this.prisma.participants.findMany({
       where: {
         projectsId,
       },
     });
 
-    return participants.map(PrismaParticipantMappers.toDomain);
+    const participantsId = participants.map((part) => part.userId);
+
+    const getparticipantsInfo = await this.prisma.user.findMany({
+      where: {
+        id: { in: participantsId },
+      },
+    });
+
+    return getparticipantsInfo as User[];
   }
 
   async removeParticipant(participantId: string): Promise<void> {
